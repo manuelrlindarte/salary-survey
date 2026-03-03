@@ -1,82 +1,539 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-<meta charset="UTF-8">
-<title>Dashboard - Estrategia Comercial</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bank Marketing | Visualización & Storytelling</title>
+  <meta name="description" content="Dashboard narrativo sobre efectividad de campañas de contacto (Bank Marketing) para Visualización & Storytelling." />
 
-<style>
+  <style>
+    :root{
+      --bg: #0b1020;
+      --panel: rgba(255,255,255,0.06);
+      --panel2: rgba(255,255,255,0.09);
+      --text: rgba(255,255,255,0.92);
+      --muted: rgba(255,255,255,0.70);
+      --soft: rgba(255,255,255,0.12);
+      --border: rgba(255,255,255,0.14);
+      --accent: #6ee7ff;
+      --accent2: #a78bfa;
+      --ok: #86efac;
+      --warn: #fde68a;
+      --bad: #fb7185;
+      --shadow: 0 18px 50px rgba(0,0,0,0.45);
+      --radius: 18px;
+      --radius2: 22px;
+      --max: 1120px;
+    }
 
-body{
-    margin:0;
-    font-family: Arial, Helvetica, sans-serif;
-    background-color:#f4f6f9;
-}
+    *{ box-sizing: border-box; }
+    html, body{ height: 100%; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(1200px 500px at 15% -10%, rgba(110,231,255,0.22), transparent 60%),
+        radial-gradient(800px 400px at 85% 10%, rgba(167,139,250,0.18), transparent 55%),
+        radial-gradient(700px 420px at 50% 110%, rgba(134,239,172,0.10), transparent 55%),
+        linear-gradient(180deg, #070a14 0%, #0b1020 55%, #070a14 100%);
+      overflow-x: hidden;
+    }
 
-.header{
-    text-align:center;
-    padding:30px;
-}
+    a{ color: inherit; text-decoration: none; }
+    .wrap{ width: min(var(--max), 92vw); margin: 0 auto; }
 
-.header h1{
-    margin-bottom:10px;
-}
+    /* Top bar */
+    .topbar{
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      backdrop-filter: blur(12px);
+      background: rgba(7,10,20,0.55);
+      border-bottom: 1px solid var(--border);
+    }
+    .topbar-inner{
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      padding: 14px 0;
+      gap: 16px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      letter-spacing: 0.2px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .dot{
+      width: 12px; height: 12px; border-radius: 999px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow: 0 0 22px rgba(110,231,255,0.35);
+    }
+    .nav{
+      display:flex;
+      gap: 14px;
+      align-items:center;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+    .nav a{
+      padding: 8px 10px;
+      border-radius: 999px;
+      color: var(--muted);
+      border: 1px solid transparent;
+      transition: 180ms ease;
+      font-size: 14px;
+    }
+    .nav a:hover{
+      color: var(--text);
+      border-color: var(--soft);
+      background: rgba(255,255,255,0.05);
+    }
 
-.header p{
-    color:#555;
-}
+    /* Hero */
+    .hero{
+      padding: 48px 0 22px;
+    }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap: 10px;
+      padding: 8px 12px;
+      border: 1px solid var(--soft);
+      background: rgba(255,255,255,0.05);
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .pill .mini{
+      width: 8px; height: 8px; border-radius: 999px;
+      background: var(--ok);
+      box-shadow: 0 0 18px rgba(134,239,172,0.25);
+    }
+    h1{
+      font-size: clamp(30px, 4vw, 46px);
+      line-height: 1.08;
+      margin: 16px 0 10px;
+      letter-spacing: -0.6px;
+    }
+    .subtitle{
+      max-width: 76ch;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.6;
+      margin: 0 0 18px;
+    }
+    .cta-row{
+      display:flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items:center;
+      margin: 18px 0 10px;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      gap: 10px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.06);
+      color: var(--text);
+      font-weight: 650;
+      transition: 180ms ease;
+      box-shadow: 0 0 0 rgba(0,0,0,0);
+      font-size: 14px;
+    }
+    .btn:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,0.09);
+      box-shadow: var(--shadow);
+    }
+    .btn.primary{
+      border-color: rgba(110,231,255,0.28);
+      background: linear-gradient(135deg, rgba(110,231,255,0.16), rgba(167,139,250,0.12));
+    }
+    .btn .icon{
+      width: 20px; height: 20px; display:inline-grid; place-items:center;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.10);
+      font-size: 12px;
+    }
 
-.dashboard-container{
-    width:95%;
-    margin:auto;
-}
+    /* Cards */
+    .grid{
+      display:grid;
+      gap: 14px;
+    }
+    .kpis{
+      grid-template-columns: repeat(12, 1fr);
+      margin-top: 18px;
+    }
+    .card{
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.05);
+      border-radius: var(--radius);
+      padding: 16px;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.22);
+    }
+    .kpi{
+      grid-column: span 3;
+      padding: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+    .kpi:before{
+      content:"";
+      position:absolute;
+      inset:-2px -2px auto auto;
+      width: 160px; height: 160px;
+      background: radial-gradient(circle at 30% 30%, rgba(110,231,255,0.18), transparent 55%),
+                  radial-gradient(circle at 70% 70%, rgba(167,139,250,0.16), transparent 55%);
+      transform: translate(40px, -60px);
+      filter: blur(2px);
+      pointer-events:none;
+    }
+    .kpi .label{ color: var(--muted); font-size: 12px; letter-spacing: 0.3px; }
+    .kpi .value{ font-size: 22px; margin-top: 8px; font-weight: 800; letter-spacing: -0.2px; }
+    .kpi .hint{ margin-top: 8px; color: var(--muted); font-size: 12px; line-height: 1.35; }
 
-iframe{
-    width:100%;
-    height:900px;
-    border:none;
-}
+    /* Story */
+    .section{ padding: 28px 0; }
+    .section h2{
+      margin: 0 0 10px;
+      font-size: 20px;
+      letter-spacing: -0.2px;
+    }
+    .section p{
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 15px;
+    }
+    .story{
+      grid-template-columns: repeat(12, 1fr);
+      margin-top: 14px;
+    }
+    .story .block{ grid-column: span 4; }
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--soft);
+      background: rgba(255,255,255,0.04);
+      color: var(--muted);
+      font-size: 12px;
+      margin-bottom: 10px;
+    }
+    .badge .b{
+      width: 7px; height: 7px; border-radius: 999px;
+      background: var(--accent);
+    }
+    .block h3{
+      margin: 8px 0 6px;
+      font-size: 16px;
+      letter-spacing: -0.2px;
+    }
+    .ul{
+      margin: 10px 0 0;
+      padding-left: 18px;
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 14px;
+    }
+    .ul li{ margin: 6px 0; }
 
-.footer{
-    text-align:center;
-    padding:20px;
-    color:#777;
-    font-size:14px;
-}
+    /* Dashboard */
+    .dash-wrap{
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.03));
+      border-radius: var(--radius2);
+      padding: 14px;
+      box-shadow: var(--shadow);
+    }
+    .dash-head{
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 8px 8px 14px;
+      flex-wrap: wrap;
+    }
+    .dash-title{
+      display:flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .dash-title strong{ font-size: 14px; }
+    .dash-title span{ color: var(--muted); font-size: 12px; }
+    .chips{
+      display:flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+    .chip{
+      font-size: 12px;
+      color: var(--muted);
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--soft);
+      background: rgba(255,255,255,0.04);
+    }
 
-</style>
+    .iframe{
+      width: 100%;
+      height: min(78vh, 980px);
+      border: none;
+      border-radius: 14px;
+      background: rgba(0,0,0,0.15);
+    }
 
+    /* How to read */
+    .two{
+      grid-template-columns: repeat(12, 1fr);
+      margin-top: 14px;
+    }
+    .two .card{ grid-column: span 6; }
+    .callout{
+      border-left: 3px solid rgba(110,231,255,0.7);
+      padding-left: 12px;
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    /* Footer */
+    .footer{
+      padding: 26px 0 38px;
+      color: rgba(255,255,255,0.55);
+      font-size: 13px;
+      border-top: 1px solid rgba(255,255,255,0.10);
+      margin-top: 26px;
+    }
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .kpi{ grid-column: span 6; }
+      .story .block{ grid-column: span 12; }
+      .two .card{ grid-column: span 12; }
+      .nav{ display:none; }
+    }
+    @media (max-width: 520px){
+      .kpi{ grid-column: span 12; }
+      .btn{ width: 100%; justify-content:center; }
+    }
+  </style>
 </head>
 
 <body>
+  <!-- Topbar -->
+  <div class="topbar">
+    <div class="wrap topbar-inner">
+      <div class="brand">
+        <div class="dot"></div>
+        <div>Bank Marketing • Story Dashboard</div>
+      </div>
+      <div class="nav">
+        <a href="#historia">Historia</a>
+        <a href="#dashboard">Dashboard</a>
+        <a href="#guia">Guía</a>
+      </div>
+    </div>
+  </div>
 
-<div class="header">
+  <!-- Hero -->
+  <header class="hero">
+    <div class="wrap">
+      <div class="pill"><span class="mini"></span> Visualización & Storytelling • Entrega</div>
 
-<h1>Impacto de la Estrategia Comercial</h1>
+      <h1>Cuando la estrategia importa: <br/>¿qué hace que una campaña realmente convierta?</h1>
 
-<p>
-Este dashboard analiza el comportamiento de las campañas de contacto y su relación
-con la conversión de clientes, permitiendo identificar patrones clave en la efectividad
-de la estrategia comercial.
-</p>
+      <p class="subtitle">
+        Este tablero cuenta la historia detrás de las campañas de contacto del caso <strong>Bank Marketing</strong>.
+        La meta no es solo “ver gráficos”: es entender <em>qué decisiones operativas y segmentación</em> se asocian con mejores resultados,
+        y qué señales advierten <em>fatiga de contacto</em> o baja efectividad.
+      </p>
 
-</div>
+      <div class="cta-row">
+        <a class="btn primary" href="#dashboard">
+          <span class="icon">▣</span> Ver dashboard
+        </a>
+        <a class="btn" href="#guia">
+          <span class="icon">⌁</span> Cómo leer el tablero
+        </a>
+        <a class="btn" href="#historia">
+          <span class="icon">✦</span> La narrativa
+        </a>
+      </div>
 
-<div class="dashboard-container">
+      <!-- KPI cards (placeholders, edit if you want) -->
+      <div class="grid kpis">
+        <div class="card kpi">
+          <div class="label">Pregunta guía</div>
+          <div class="value">¿Qué impulsa la conversión?</div>
+          <div class="hint">Identificar patrones por contacto previo, campaña y duración de llamada.</div>
+        </div>
+        <div class="card kpi">
+          <div class="label">Foco del análisis</div>
+          <div class="value">Efectividad</div>
+          <div class="hint">No solo volumen: calidad del contacto y señales de oportunidad.</div>
+        </div>
+        <div class="card kpi">
+          <div class="label">Riesgo operativo</div>
+          <div class="value">Fatiga</div>
+          <div class="hint">Re-contactar mal segmentado puede deteriorar resultados y experiencia.</div>
+        </div>
+        <div class="card kpi">
+          <div class="label">Salida esperada</div>
+          <div class="value">Acciones</div>
+          <div class="hint">Recomendaciones claras para priorizar, ajustar y medir campañas.</div>
+        </div>
+      </div>
+    </div>
+  </header>
 
-<iframe src="https://lookerstudio.google.com/embed/reporting/263861ee-64c6-456e-b402-888a63ac146b/page/6HlqF"
-allowfullscreen
-sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox">
-</iframe>
+  <!-- Story -->
+  <section id="historia" class="section">
+    <div class="wrap">
+      <h2>La historia en 3 actos</h2>
+      <p>Una narrativa simple y útil: contexto → hallazgos → decisiones.</p>
 
-</div>
+      <div class="grid story">
+        <div class="card block">
+          <div class="badge"><span class="b"></span> Acto 1</div>
+          <h3>Contexto: no todo contacto vale lo mismo</h3>
+          <p>
+            Una campaña puede “mover” volumen, pero eso no significa conversión.
+            Partimos de variables operativas del contacto para entender dónde se gana (o se pierde) valor.
+          </p>
+          <ul class="ul">
+            <li>¿Qué pasa cuando el cliente ya fue contactado antes?</li>
+            <li>¿La duración de llamada refleja interés real o fricción?</li>
+            <li>¿Hay campañas que rinden mejor por diseño?</li>
+          </ul>
+        </div>
 
-<div class="footer">
+        <div class="card block">
+          <div class="badge"><span class="b"></span> Acto 2</div>
+          <h3>Hallazgos: señales que separan ruido de oportunidad</h3>
+          <p>
+            Con el tablero buscamos patrones consistentes: segmentos o comportamientos que tienden a asociarse
+            con mayor probabilidad de respuesta positiva.
+          </p>
+          <ul class="ul">
+            <li>Comparaciones claras (no “mil gráficos compitiendo”).</li>
+            <li>Foco en variables explicativas clave (contacto previo, campaña, duración).</li>
+            <li>Lectura rápida para tomar decisiones, no para “admirar colores”.</li>
+          </ul>
+        </div>
 
-Proyecto de Visualización y Storytelling
+        <div class="card block">
+          <div class="badge"><span class="b"></span> Acto 3</div>
+          <h3>Decisiones: qué cambiar mañana</h3>
+          <p>
+            El objetivo final es accionable: priorizar esfuerzos, reducir desgaste y mejorar eficiencia.
+          </p>
+          <ul class="ul">
+            <li>Priorizar segmentos/campañas con mejor desempeño.</li>
+            <li>Revisar reglas de re-contacto para evitar fatiga.</li>
+            <li>Definir métricas de seguimiento por cohorte y campaña.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
 
-</div>
+  <!-- Dashboard -->
+  <section id="dashboard" class="section">
+    <div class="wrap">
+      <h2>Dashboard</h2>
+      <p>Interactúa con filtros y cruza variables para validar patrones (y encontrar excepciones).</p>
 
+      <div class="dash-wrap" style="margin-top:14px;">
+        <div class="dash-head">
+          <div class="dash-title">
+            <strong>Tablero interactivo (Looker Studio)</strong>
+            <span>Tip: usa pantalla completa para ver etiquetas y tooltips con claridad.</span>
+          </div>
+          <div class="chips">
+            <div class="chip">Bank Marketing</div>
+            <div class="chip">Narrativa: Estrategia → Conversión</div>
+            <div class="chip">Enfoque: decisiones accionables</div>
+          </div>
+        </div>
+
+        <iframe
+          class="iframe"
+          src="https://lookerstudio.google.com/embed/reporting/263861ee-64c6-456e-b402-888a63ac146b/page/6HlqF"
+          allowfullscreen
+          sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox">
+        </iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- How to read -->
+  <section id="guia" class="section">
+    <div class="wrap">
+      <h2>Cómo leer el tablero (para ir directo al punto)</h2>
+      <p>Si solo tuvieras 2 minutos, esto es lo que deberías mirar primero.</p>
+
+      <div class="grid two">
+        <div class="card">
+          <h3 style="margin:0 0 8px;">1) Empieza por “contacto previo”</h3>
+          <p>Te da el contexto base: ¿estamos hablando con alguien nuevo o re-contactado?</p>
+          <div class="callout">
+            <strong>Lectura:</strong> Si el desempeño cae cuando ya hubo contacto, es señal de <em>fatiga</em> o de mala priorización.
+          </div>
+        </div>
+
+        <div class="card">
+          <h3 style="margin:0 0 8px;">2) Luego revisa “campaña” y “duración”</h3>
+          <p>Sirve para separar campañas con alto potencial vs campañas que solo consumen esfuerzo.</p>
+          <div class="callout">
+            <strong>Lectura:</strong> Duraciones mayores no siempre significan éxito: a veces indican fricción. Busca consistencia.
+          </div>
+        </div>
+
+        <div class="card">
+          <h3 style="margin:0 0 8px;">3) Cierra con acción</h3>
+          <p>El tablero está diseñado para terminar en una decisión práctica.</p>
+          <div class="callout">
+            <strong>Acciones típicas:</strong> ajustar targeting, redefinir re-contacto, priorizar campañas, medir por cohorte.
+          </div>
+        </div>
+
+        <div class="card">
+          <h3 style="margin:0 0 8px;">4) Qué NO hacer</h3>
+          <p>Evita conclusiones de un solo gráfico sin contraste.</p>
+          <div class="callout">
+            <strong>Regla:</strong> si un patrón “se ve bonito” pero no se sostiene con filtros y comparaciones, probablemente es ruido.
+          </div>
+        </div>
+      </div>
+
+      <div class="cta-row" style="margin-top:16px;">
+        <a class="btn primary" href="#dashboard"><span class="icon">▣</span> Volver al dashboard</a>
+        <a class="btn" href="#historia"><span class="icon">✦</span> Volver a la narrativa</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="wrap">
+      <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:space-between;">
+        <div>Visualización & Storytelling • Bank Marketing</div>
+        <div style="opacity:0.85;">Hecho para comunicar decisiones, no para decorar dashboards ✨</div>
+      </div>
+    </div>
+  </footer>
 </body>
-
 </html>
