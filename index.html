@@ -1,465 +1,296 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Bank Marketing | Storytelling Dashboard</title>
-  <meta name="description" content="Historia con datos sobre por qué fracasan campañas bancarias (Bank Marketing) con dashboard interactivo en Looker Studio." />
+<meta charset="UTF-8">
+<title>Bank Marketing Dashboard | DataTellers</title>
 
-  <style>
-    :root{
-      /* Paleta alineada a tu dashboard (blanco/gris + verde) */
-      --bg: #f6f7f8;
-      --card: #ffffff;
-      --text: #1f2937;
-      --muted: #6b7280;
-      --border: #e5e7eb;
+<style>
 
-      /* Verde similar al dashboard */
-      --accent: #1b7f3a;
-      --accent-2: #145c2a;
+body{
+font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial;
+margin:0;
+background:#f5f7fb;
+color:#1f2937;
+}
 
-      --shadow: 0 10px 30px rgba(17, 24, 39, 0.08);
-      --radius: 14px;
-      --max: 1100px;
-    }
+.wrap{
+max-width:1200px;
+margin:auto;
+padding:40px 20px;
+}
 
-    *{ box-sizing: border-box; }
-    html, body { height: 100%; }
-    body{
-      margin: 0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.5;
-    }
+.hero{
+background:#0f172a;
+color:white;
+padding:60px 20px;
+text-align:center;
+}
 
-    a{ color: inherit; text-decoration: none; }
-    .wrap{ width: min(var(--max), 92vw); margin: 0 auto; }
+.hero h1{
+font-size:40px;
+margin-bottom:10px;
+}
 
-    /* Topbar */
-    .topbar{
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      background: rgba(246,247,248,0.92);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--border);
-    }
-    .topbar-inner{
-      display:flex;
-      align-items:center;
-      justify-content: space-between;
-      padding: 12px 0;
-      gap: 16px;
-    }
-    .brand{
-      display:flex;
-      align-items:center;
-      gap: 10px;
-      font-weight: 800;
-      letter-spacing: -0.2px;
-      white-space: nowrap;
-    }
-    .dot{
-      width: 10px; height: 10px; border-radius: 999px;
-      background: var(--accent);
-      box-shadow: 0 0 0 4px rgba(27,127,58,0.12);
-    }
-    .nav{
-      display:flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-    }
-    .nav a{
-      font-size: 13px;
-      color: var(--muted);
-      padding: 8px 10px;
-      border-radius: 999px;
-      border: 1px solid transparent;
-      transition: 160ms ease;
-    }
-    .nav a:hover{
-      color: var(--text);
-      border-color: var(--border);
-      background: #fff;
-    }
+.hero p{
+opacity:.85;
+font-size:18px;
+}
 
-    /* Hero */
-    .hero{ padding: 34px 0 8px; }
-    .badge{
-      display:inline-flex;
-      align-items:center;
-      gap: 8px;
-      font-size: 12px;
-      color: var(--muted);
-      padding: 7px 10px;
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      background: #fff;
-      box-shadow: 0 6px 16px rgba(17,24,39,0.04);
-    }
-    h1{
-      margin: 14px 0 10px;
-      font-size: clamp(28px, 3.2vw, 40px);
-      line-height: 1.08;
-      letter-spacing: -0.7px;
-    }
-    .subtitle{
-      margin: 0;
-      color: var(--muted);
-      font-size: 15px;
-      max-width: 85ch;
-    }
+.badge{
+background:#1e293b;
+padding:8px 16px;
+border-radius:20px;
+display:inline-block;
+margin-top:15px;
+font-size:14px;
+}
 
-    .cta{
-      display:flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin: 16px 0 6px;
-    }
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      gap: 10px;
-      padding: 11px 13px;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      background: #fff;
-      font-weight: 700;
-      font-size: 14px;
-      transition: 160ms ease;
-      box-shadow: 0 8px 18px rgba(17,24,39,0.05);
-    }
-    .btn:hover{ transform: translateY(-1px); box-shadow: var(--shadow); }
-    .btn.primary{
-      border-color: rgba(27,127,58,0.25);
-      background: linear-gradient(180deg, rgba(27,127,58,0.10), rgba(27,127,58,0.05));
-      color: var(--accent-2);
-    }
-    .icon{
-      width: 22px; height: 22px;
-      display:inline-grid; place-items:center;
-      border-radius: 8px;
-      background: rgba(27,127,58,0.08);
-      color: var(--accent-2);
-      font-size: 12px;
-      border: 1px solid rgba(27,127,58,0.12);
-    }
+.section{
+padding:60px 0;
+}
 
-    /* Sections / cards */
-    .section{ padding: 16px 0; }
-    .card{
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 16px;
-      box-shadow: 0 10px 26px rgba(17,24,39,0.05);
-    }
-    .grid{ display:grid; gap: 12px; }
+.grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:20px;
+margin-top:30px;
+}
 
-    /* 3-step story cards: PROBLEMA / EVIDENCIA / DECISIÓN */
-    .story3{
-      grid-template-columns: repeat(12, 1fr);
-      margin-top: 12px;
-    }
-    .s3{ grid-column: span 4; padding: 18px; position: relative; overflow: hidden; }
-    .s3:before{
-      content:"";
-      position:absolute;
-      inset:-60px -60px auto auto;
-      width: 220px;
-      height: 220px;
-      border-radius: 999px;
-      background: radial-gradient(circle at 30% 30%, rgba(27,127,58,0.18), transparent 60%);
-      transform: translate(60px,-60px);
-      pointer-events: none;
-    }
-    .tag{
-      display:inline-flex;
-      align-items:center;
-      gap: 8px;
-      font-size: 12px;
-      font-weight: 900;
-      letter-spacing: 0.4px;
-      color: var(--accent-2);
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(27,127,58,0.18);
-      background: rgba(27,127,58,0.06);
-      margin-bottom: 10px;
-    }
-    .tag .mini-dot{
-      width: 7px; height: 7px; border-radius: 999px;
-      background: var(--accent);
-    }
-    .s3 h3{
-      margin: 6px 0 6px;
-      font-size: 16px;
-      letter-spacing: -0.2px;
-    }
-    .s3 p{
-      margin: 0;
-      color: var(--muted);
-      font-size: 14px;
-    }
-    .ul{
-      margin: 10px 0 0;
-      padding-left: 18px;
-      color: var(--muted);
-      font-size: 14px;
-    }
-    .ul li{ margin: 6px 0; }
+.card{
+background:white;
+padding:25px;
+border-radius:10px;
+box-shadow:0 2px 10px rgba(0,0,0,0.05);
+}
 
-    /* Dashboard frame */
-    .dash-wrap{
-      margin-top: 10px;
-      padding: 14px;
-      border-radius: 18px;
-      border: 1px solid var(--border);
-      background: #fff;
-      box-shadow: var(--shadow);
-    }
-    .dash-head{
-      display:flex;
-      align-items:flex-start;
-      justify-content: space-between;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-bottom: 10px;
-    }
-    .dash-head strong{ display:block; font-size: 14px; }
-    .dash-head span{ color: var(--muted); font-size: 12px; }
-    .chips{ display:flex; gap: 8px; flex-wrap: wrap; }
-    .chip{
-      font-size: 12px;
-      color: var(--muted);
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      background: #fafafa;
-      white-space: nowrap;
-    }
-    iframe{
-      width: 100%;
-      height: min(80vh, 980px);
-      border: none;
-      border-radius: 12px;
-      background: #f3f4f6;
-    }
+.card h3{
+margin-top:0;
+font-size:18px;
+}
 
-    /* Reading guide */
-    .two{ grid-template-columns: repeat(12, 1fr); margin-top: 10px; }
-    .half{ grid-column: span 6; }
-    .callout{
-      margin-top: 10px;
-      padding: 12px;
-      border-radius: 12px;
-      border: 1px solid rgba(27,127,58,0.18);
-      background: rgba(27,127,58,0.06);
-      color: var(--muted);
-      font-size: 13.5px;
-    }
-    .callout b{ color: var(--accent-2); }
+.card p{
+color:#4b5563;
+}
 
-    /* Footer */
-    .footer{
-      margin-top: 18px;
-      padding: 18px 0 30px;
-      color: var(--muted);
-      font-size: 12.5px;
-      border-top: 1px solid var(--border);
-    }
+.dashboard{
+background:white;
+padding:20px;
+border-radius:12px;
+box-shadow:0 2px 15px rgba(0,0,0,0.05);
+}
 
-    /* Responsive */
-    @media (max-width: 980px){
-      .s3{ grid-column: span 12; }
-      .half{ grid-column: span 12; }
-      .nav{ display:none; }
-    }
-  </style>
+iframe{
+border:none;
+width:100%;
+height:600px;
+}
+
+.playbook{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:20px;
+margin-top:30px;
+}
+
+.playcard{
+background:white;
+padding:25px;
+border-radius:10px;
+box-shadow:0 2px 10px rgba(0,0,0,0.05);
+}
+
+.callout{
+margin-top:12px;
+padding:12px;
+background:#eef2ff;
+border-radius:8px;
+font-size:14px;
+}
+
+.footer{
+background:#0f172a;
+color:white;
+text-align:center;
+padding:20px;
+margin-top:60px;
+font-size:14px;
+}
+
+</style>
 </head>
 
 <body>
-  <!-- Topbar -->
-  <div class="topbar">
-    <div class="wrap topbar-inner">
-      <div class="brand">
-        <div class="dot"></div>
-        <div>DataTellers • Bank Marketing Dashboard</div>
-      </div>
-      <div class="nav">
-        <a href="#story">Story</a>
-        <a href="#dashboard">Dashboard</a>
-        <a href="#guia">Guía</a>
-      </div>
-    </div>
-  </div>
 
-  <!-- Hero -->
-  <header class="hero">
-    <div class="wrap">
-      <div class="badge">Visualización y Storytelling • Universidad de los Andes • Grupo: DataTellers</div>
+<!-- HERO -->
 
-      <h1>¿Por qué fracasan las campañas bancarias?</h1>
+<section class="hero">
+<div class="wrap">
 
-      <p class="subtitle">
-        En campañas de marketing bancario, el problema no suele ser “hacer llamadas”, sino <b>hacerlas bien</b>.
-        Esta visualización busca demostrar, con evidencia, que la <b>estrategia de contacto</b> (canal, duración e historial)
-        tiene un rol clave en la conversión.
-      </p>
+<h1>¿Por qué fracasan las campañas bancarias?</h1>
 
-      <div class="cta">
-        <a class="btn primary" href="#dashboard"><span class="icon">▣</span> Ir al dashboard</a>
-        <a class="btn" href="#story"><span class="icon">✦</span> Ver la historia</a>
-        <a class="btn" href="#guia"><span class="icon">⌁</span> Cómo leerlo</a>
-      </div>
+<p>
+Un análisis visual del desempeño de campañas de marketing bancario
+para identificar qué factores realmente impulsan la conversión.
+</p>
 
-      <!-- Mini storytelling: PROBLEMA / EVIDENCIA / DECISIÓN -->
-      <section id="story" class="section" style="padding-bottom:0;">
-        <div class="grid story3">
+<div class="badge">
+Visualización y Storytelling • Universidad de los Andes • Grupo DataTellers
+</div>
 
-          <div class="card s3">
-            <div class="tag"><span class="mini-dot"></span> PROBLEMA</div>
-            <h3>Mucho esfuerzo, poca conversión</h3>
-            <p>
-              Las campañas pueden generar alto volumen de llamadas, pero aun así fallar en convertir.
-              El reto es entender <b>qué está funcionando</b> y <b>qué está desgastando</b> la estrategia.
-            </p>
-            <ul class="ul">
-              <li>¿Más intentos realmente ayudan?</li>
-              <li>¿El canal cambia el resultado?</li>
-              <li>¿Qué señales anticipan fracaso?</li>
-            </ul>
-          </div>
+</div>
+</section>
 
-          <div class="card s3">
-            <div class="tag"><span class="mini-dot"></span> EVIDENCIA</div>
-            <h3>La estrategia de contacto mueve la aguja</h3>
-            <p>
-              Comparando variables operativas del contacto se observan patrones de desempeño:
-              <b>contacto previo</b>, <b>duración</b> y <b>canal</b> ayudan a explicar diferencias en conversión.
-            </p>
-            <ul class="ul">
-              <li>Segmentación por historial de contacto</li>
-              <li>Comparación por canal de contacto</li>
-              <li>Relación duración vs conversión</li>
-            </ul>
-          </div>
 
-          <div class="card s3">
-            <div class="tag"><span class="mini-dot"></span> DECISIÓN</div>
-            <h3>Priorizar, optimizar y evitar fatiga</h3>
-            <p>
-              El objetivo del tablero es accionable: apoyar decisiones para <b>asignar mejor recursos</b>,
-              <b>mejorar la experiencia</b> y <b>reducir intentos ineficientes</b>.
-            </p>
-            <ul class="ul">
-              <li>Priorizar segmentos/campañas con mejor desempeño</li>
-              <li>Optimizar canal antes de aumentar volumen</li>
-              <li>Definir reglas de recontacto para evitar desgaste</li>
-            </ul>
-          </div>
+<!-- STORYTELLING -->
 
-        </div>
-      </section>
-    </div>
-  </header>
+<section class="section">
+<div class="wrap">
 
-  <!-- Dashboard -->
-  <section id="dashboard" class="section">
-    <div class="wrap">
-      <h2 style="margin:0 0 6px; letter-spacing:-0.2px;">Dashboard interactivo</h2>
-      <p style="margin:0; color:var(--muted); font-size:14px;">
-        El siguiente dashboard presenta evidencia basada en más de 45.000 llamadas de campañas bancarias,
-        permitiendo explorar cómo variables operativas del contacto influyen en la conversión.
-      </p>
+<h2>La historia detrás de las campañas</h2>
 
-      <div class="dash-wrap">
-        <div class="dash-head">
-          <div>
-            <strong>Looker Studio • Bank Marketing</strong>
-            <span>Tip: usa pantalla completa para leer etiquetas y tooltips con claridad.</span>
-          </div>
-          <div class="chips">
-            <div class="chip">Story: Problema → Evidencia → Decisión</div>
-            <div class="chip">Foco: efectividad de campañas</div>
-            <div class="chip">Salida: recomendaciones accionables</div>
-          </div>
-        </div>
+<div class="grid">
 
-        <iframe
-          src="https://lookerstudio.google.com/embed/reporting/263861ee-64c6-456e-b402-888a63ac146b/page/6HlqF"
-          allowfullscreen
-          sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox">
-        </iframe>
-      </div>
-    </div>
-  </section>
+<div class="card">
+<h3>PROBLEMA</h3>
+<p>
+Los bancos realizan miles de llamadas comerciales, pero solo una pequeña fracción se convierte en clientes.
+La pregunta clave no es cuántas llamadas se hacen, sino qué características hacen que una campaña funcione.
+</p>
+</div>
 
-  <!-- Guía de lectura -->
-  <section id="guia" class="section">
-    <div class="wrap">
-      <h2 style="margin:0 0 6px; letter-spacing:-0.2px;">Guía rápida para convencer (sin marear)</h2>
-      <p style="margin:0; color:var(--muted); font-size:14px;">
-        Dos minutos. Cuatro pasos. Un mensaje claro.
-      </p>
+<div class="card">
+<h3>EVIDENCIA</h3>
+<p>
+Analizamos más de <strong>45.000 interacciones de campañas bancarias</strong> para identificar patrones en
+canales de contacto, duración de llamadas y contacto previo con el cliente.
+</p>
+</div>
 
-      <div class="grid two">
-        <div class="card half">
-          <h3 style="margin:0 0 6px; font-size:15px;">1) Empieza por el panorama general</h3>
-          <p style="margin:0; color:var(--muted); font-size:14px;">
-            Identifica el nivel de conversión y la distribución global del resultado.
-          </p>
-          <div class="callout">
-            <b>Pregunta:</b> ¿el problema es volumen… o efectividad?
-          </div>
-        </div>
+<div class="card">
+<h3>DECISIÓN</h3>
+<p>
+El objetivo es transformar estos datos en decisiones prácticas para los equipos de marketing:
+qué canal priorizar, cuándo insistir y cuándo evitar la fatiga del cliente.
+</p>
+</div>
 
-        <div class="card half">
-          <h3 style="margin:0 0 6px; font-size:15px;">2) Mira el canal de contacto</h3>
-          <p style="margin:0; color:var(--muted); font-size:14px;">
-            Compara desempeño por canal para ver si hay un “camino” más efectivo.
-          </p>
-          <div class="callout">
-            <b>Lectura:</b> si el canal cambia el resultado, hay una decisión operativa inmediata.
-          </div>
-        </div>
+</div>
 
-        <div class="card half">
-          <h3 style="margin:0 0 6px; font-size:15px;">3) Contrasta con historial / recontacto</h3>
-          <p style="margin:0; color:var(--muted); font-size:14px;">
-            Evalúa si repetir intentos ayuda o genera fatiga.
-          </p>
-          <div class="callout">
-            <b>Regla:</b> más intentos no siempre = más conversión.
-          </div>
-        </div>
+</div>
+</section>
 
-        <div class="card half">
-          <h3 style="margin:0 0 6px; font-size:15px;">4) Cierra con una decisión</h3>
-          <p style="margin:0; color:var(--muted); font-size:14px;">
-            Usa el patrón observado para proponer una acción clara y justificable.
-          </p>
-          <div class="callout">
-            <b>Salida:</b> priorizar, optimizar canal y definir reglas de recontacto.
-          </div>
-        </div>
-      </div>
 
-      <div class="cta" style="margin-top: 12px;">
-        <a class="btn primary" href="#dashboard"><span class="icon">▣</span> Volver al dashboard</a>
-        <a class="btn" href="#story"><span class="icon">✦</span> Volver a la historia</a>
-      </div>
-    </div>
-  </section>
+<!-- DASHBOARD -->
 
-  <footer class="footer">
-    <div class="wrap" style="display:flex; gap:10px; flex-wrap:wrap; justify-content:space-between; align-items:center;">
-      <div>Visualización y Storytelling • Universidad de los Andes</div>
-      <div>Grupo: <strong>DataTellers</strong> • Proyecto: Bank Marketing</div>
-    </div>
-  </footer>
+<section class="section">
+<div class="wrap">
+
+<h2>Explora el dashboard</h2>
+
+<p style="color:#6b7280; font-size:14px;">
+El siguiente dashboard presenta evidencia basada en más de 45.000 llamadas de campañas bancarias,
+permitiendo explorar cómo variables operativas del contacto influyen en la conversión.
+</p>
+
+<div class="dashboard">
+
+<iframe src="https://lookerstudio.google.com/embed/reporting/263861ee-64c6-456e-b402-888a63ac146b/page/6HlqF"
+allowfullscreen
+sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox">
+</iframe>
+
+</div>
+
+</div>
+</section>
+
+
+<!-- PLAYBOOK PARA MARKETING -->
+
+<section class="section">
+<div class="wrap">
+
+<h2>Cómo usar este tablero para tomar decisiones</h2>
+
+<p style="color:#6b7280;">
+Pensado para equipos de marketing bancario: qué observar en los datos y qué decisiones operativas se pueden tomar.
+</p>
+
+<div class="playbook">
+
+<div class="playcard">
+
+<h3>Objetivo de negocio</h3>
+
+<p>
+Incrementar la conversión de campañas de contacto directo optimizando la estrategia de contacto con los clientes.
+</p>
+
+<div class="callout">
+No se trata de hacer más llamadas, sino de identificar cuándo y cómo contactar para maximizar la probabilidad de conversión.
+</div>
+
+</div>
+
+
+<div class="playcard">
+
+<h3>Qué revisar primero</h3>
+
+<p>
+Empieza analizando la conversión global y luego compara resultados por canal de contacto y contacto previo.
+</p>
+
+<div class="callout">
+Checklist: Conversión → Canal → Contacto previo → Duración de llamada.
+</div>
+
+</div>
+
+
+<div class="playcard">
+
+<h3>Cómo interpretar los patrones</h3>
+
+<p>
+Los promedios pueden ocultar patrones importantes. Al segmentar por canal o historial de contacto,
+se pueden identificar estrategias que funcionan mejor para ciertos perfiles de cliente.
+</p>
+
+<div class="callout">
+Si un segmento cambia significativamente al aplicar filtros, probablemente existe una oportunidad estratégica.
+</div>
+
+</div>
+
+
+<div class="playcard">
+
+<h3>Decisiones que habilita</h3>
+
+<p>
+El dashboard permite transformar observaciones en acciones concretas para mejorar la efectividad de las campañas.
+</p>
+
+<div class="callout">
+Priorizar los canales con mayor conversión, ajustar la duración óptima de contacto
+y definir reglas de recontacto para evitar fatiga del cliente.
+</div>
+
+</div>
+
+</div>
+
+</div>
+</section>
+
+
+<footer class="footer">
+
+Visualización y Storytelling • Universidad de los Andes  
+Grupo: <strong>DataTellers</strong> • Proyecto: Bank Marketing Dashboard
+
+</footer>
+
 </body>
 </html>
