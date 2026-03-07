@@ -2,12 +2,12 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bank Marketing Dashboard | DataTellers</title>
 
 <style>
-
 body{
-font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial;
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial;
 margin:0;
 background:#f5f7fb;
 color:#1f2937;
@@ -16,26 +16,51 @@ color:#1f2937;
 .wrap{
 max-width:1200px;
 margin:auto;
-padding:40px 20px;
+padding:28px 20px;
 }
 
 .hero{
-background:#0f172a;
+background:
+linear-gradient(135deg, rgba(15,23,42,0.96), rgba(15,23,42,0.92)),
+radial-gradient(circle at top right, rgba(34,197,94,0.18), transparent 28%),
+radial-gradient(circle at top left, rgba(255,255,255,0.05), transparent 22%);
 color:white;
-padding:60px 20px;
+padding:52px 20px 40px;
 text-align:center;
+position:relative;
+overflow:hidden;
+}
+
+.hero::after{
+content:"";
+position:absolute;
+left:50%;
+bottom:-40px;
+transform:translateX(-50%);
+width:180px;
+height:180px;
+background:rgba(34,197,94,0.08);
+filter:blur(40px);
+border-radius:50%;
+pointer-events:none;
 }
 
 .hero h1{
 font-size:40px;
 margin-bottom:10px;
+line-height:1.1;
+}
+
+.hero h1 .accent{
+color:#22c55e;
 }
 
 .hero p{
-opacity:.85;
+opacity:.9;
 font-size:18px;
-max-width:750px;
-margin:auto;
+max-width:860px;
+margin:0 auto;
+line-height:1.5;
 }
 
 .badge{
@@ -45,17 +70,44 @@ border-radius:20px;
 display:inline-block;
 margin-top:15px;
 font-size:14px;
+border:1px solid rgba(255,255,255,0.08);
 }
 
 .section{
-padding:60px 0;
+padding:26px 0 18px;
+}
+
+.section.tight{
+padding-top:14px;
+padding-bottom:12px;
+}
+
+.section h2{
+margin:0 0 10px;
+font-size:30px;
+color:#0f172a;
+}
+
+.section p.lead{
+margin:0 0 14px;
+color:#4b5563;
+font-size:16px;
+max-width:860px;
+line-height:1.6;
+}
+
+.divider{
+width:100%;
+height:1px;
+background:linear-gradient(to right, transparent, #cbd5e1, transparent);
+margin:12px 0 4px;
 }
 
 .grid{
 display:grid;
 grid-template-columns:repeat(3,1fr);
 gap:20px;
-margin-top:30px;
+margin-top:16px;
 }
 
 .card{
@@ -63,42 +115,110 @@ background:white;
 padding:25px;
 border-radius:10px;
 box-shadow:0 2px 10px rgba(0,0,0,0.05);
+border-top:4px solid #22c55e;
+position:relative;
+overflow:hidden;
+}
+
+.card::before{
+content:"";
+position:absolute;
+top:0;
+right:0;
+width:70px;
+height:70px;
+background:radial-gradient(circle, rgba(34,197,94,0.10), transparent 68%);
+pointer-events:none;
 }
 
 .card h3{
 margin-top:0;
+margin-bottom:10px;
 font-size:18px;
+color:#0f172a;
+letter-spacing:.3px;
 }
 
 .card p{
 color:#4b5563;
+margin:0;
+line-height:1.6;
 }
 
 .dashboard{
 background:white;
-padding:20px;
+padding:18px;
 border-radius:12px;
 box-shadow:0 2px 15px rgba(0,0,0,0.05);
+position:relative;
+overflow:hidden;
+}
+
+.dashboard::before{
+content:"";
+position:absolute;
+top:0;
+left:0;
+right:0;
+height:4px;
+background:linear-gradient(to right, #22c55e, #0f172a, #22c55e);
 }
 
 iframe{
 border:none;
 width:100%;
-height:600px;
+height:650px;
+}
+
+.insight-band{
+margin-top:12px;
+background:linear-gradient(90deg,#ecfdf5,#f8fafc);
+border-left:4px solid #22c55e;
+padding:14px 16px;
+border-radius:8px;
+font-size:15px;
+color:#374151;
+line-height:1.5;
 }
 
 .playbook{
 display:grid;
 grid-template-columns:repeat(2,1fr);
 gap:20px;
-margin-top:30px;
+margin-top:14px;
 }
 
 .playcard{
 background:white;
-padding:25px;
+padding:22px;
 border-radius:10px;
 box-shadow:0 2px 10px rgba(0,0,0,0.05);
+border-left:4px solid #0f172a;
+position:relative;
+overflow:hidden;
+}
+
+.playcard::after{
+content:"";
+position:absolute;
+right:-10px;
+bottom:-10px;
+width:60px;
+height:60px;
+background:radial-gradient(circle, rgba(15,23,42,0.06), transparent 70%);
+pointer-events:none;
+}
+
+.playcard h3{
+margin:0 0 10px;
+font-size:20px;
+color:#0f172a;
+}
+
+.playcard p{
+margin:0;
+color:#4b5563;
+line-height:1.6;
 }
 
 .callout{
@@ -107,33 +227,53 @@ padding:12px;
 background:#eef2ff;
 border-radius:8px;
 font-size:14px;
+line-height:1.5;
+color:#374151;
 }
 
 .footer{
 background:#0f172a;
 color:white;
 text-align:center;
-padding:20px;
-margin-top:60px;
+padding:18px 20px;
+margin-top:24px;
 font-size:14px;
+line-height:1.6;
 }
 
+@media (max-width: 900px){
+.grid,
+.playbook{
+grid-template-columns:1fr;
+}
+
+.hero h1{
+font-size:32px;
+}
+
+.hero p{
+font-size:16px;
+}
+
+iframe{
+height:560px;
+}
+}
 </style>
 </head>
 
 <body>
 
 <!-- HERO -->
-
 <section class="hero">
 <div class="wrap">
 
-<h1>¿Qué hace realmente efectiva una campaña bancaria?</h1>
+<h1>¿Por qué fracasan la mayoría de <span class="accent">campañas bancarias</span>?</h1>
 
 <p>
-Las campañas de contacto directo son una de las estrategias más utilizadas por los bancos para promover productos financieros. 
-Sin embargo, la mayoría de las llamadas no termina en una conversión. 
-Este proyecto explora qué factores realmente explican ese resultado.
+Analizamos <strong>45.211 llamadas</strong> para responder una pregunta clave del marketing bancario:
+si la baja conversión depende del perfil del cliente o de la forma en que se gestiona el contacto.
+Los datos muestran que la <strong>estrategia de contacto</strong> pesa más que las características demográficas.
 </p>
 
 <div class="badge">
@@ -143,42 +283,42 @@ Visualización y Storytelling • Universidad de los Andes • Grupo DataTellers
 </div>
 </section>
 
-
-<!-- STORYTELLING -->
-
-<section class="section">
+<!-- STORY -->
+<section class="section tight">
 <div class="wrap">
 
-<h2>La pregunta detrás de los datos</h2>
+<h2>La historia que cuentan los datos</h2>
 
-<p style="color:#6b7280; max-width:800px;">
-Cuando una campaña tiene baja conversión, una explicación común es pensar que el problema está en el perfil del cliente. 
-Sin embargo, los datos permiten explorar otra posibilidad: que el resultado dependa más de la estrategia de contacto que de las características demográficas del cliente.
+<p class="lead">
+Cuando una campaña bancaria obtiene pocos resultados, es común pensar que el problema está en el tipo de cliente contactado.
+Sin embargo, este análisis sugiere una explicación distinta: el bajo desempeño puede depender menos del perfil del cliente y más de decisiones operativas como
+el canal utilizado, el historial de interacción y el número de intentos de contacto.
 </p>
+
+<div class="divider"></div>
 
 <div class="grid">
 
 <div class="card">
 <h3>PROBLEMA</h3>
 <p>
-Las campañas de marketing bancario implican miles de llamadas comerciales. 
-A pesar de este esfuerzo operativo, solo una pequeña proporción de clientes acepta la oferta, lo que plantea dudas sobre la efectividad de la estrategia de contacto.
+La conversión general es baja: la mayoría de las llamadas no termina en suscripción.
+Esto convierte cada intento en un costo que debería estar mejor orientado.
 </p>
 </div>
 
 <div class="card">
-<h3>EVIDENCIA</h3>
+<h3>HIPÓTESIS</h3>
 <p>
-El análisis se basa en más de <strong>45.000 interacciones de campañas bancarias</strong>. 
-Esto permite observar patrones en variables como canal de contacto, historial de llamadas y duración de la conversación.
+Una explicación intuitiva sería pensar que la conversión depende principalmente de la edad o del perfil del cliente.
+El dashboard pone a prueba esa idea.
 </p>
 </div>
 
 <div class="card">
 <h3>HALLAZGO</h3>
 <p>
-Los resultados sugieren que la conversión no depende únicamente del perfil del cliente. 
-Variables operativas como el canal utilizado, el número de intentos y la duración de la llamada tienen un impacto importante en la probabilidad de éxito.
+Los resultados muestran que variables como el contacto previo, el canal y la dinámica de la llamada tienen mayor impacto en la conversión que el perfil demográfico.
 </p>
 </div>
 
@@ -187,17 +327,15 @@ Variables operativas como el canal utilizado, el número de intentos y la duraci
 </div>
 </section>
 
-
 <!-- DASHBOARD -->
-
-<section class="section">
+<section class="section tight">
 <div class="wrap">
 
-<h2>Exploración interactiva del análisis</h2>
+<h2>Dashboard narrativo</h2>
 
-<p style="color:#6b7280; font-size:15px; max-width:800px;">
-El dashboard permite explorar visualmente cómo diferentes factores influyen en la conversión de las campañas. 
-A través de los filtros y visualizaciones es posible identificar patrones entre el canal de contacto, el historial de interacciones con el cliente y la duración de las llamadas.
+<p class="lead">
+El tablero está organizado como una secuencia visual: primero presenta el problema, luego contrasta una hipótesis común sobre el perfil del cliente
+y finalmente muestra la evidencia que explica mejor la conversión de la campaña.
 </p>
 
 <div class="dashboard">
@@ -209,100 +347,125 @@ sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin
 
 </div>
 
+<div class="insight-band">
+<strong>Mensaje principal:</strong> la evidencia sugiere que hacer más llamadas no garantiza mejores resultados.
+La efectividad parece depender más de <strong>cómo</strong> se contacta al cliente que de <strong>quién</strong> es el cliente.
+</div>
+
 </div>
 </section>
 
-
 <!-- INTERPRETACIÓN -->
-
-<section class="section">
+<section class="section tight">
 <div class="wrap">
 
-<h2>Interpretando los resultados</h2>
+<h2>Cómo interpretar los resultados</h2>
 
-<p style="color:#6b7280; max-width:800px;">
-Más allá de observar los valores agregados, el análisis busca identificar patrones que puedan ayudar a entender por qué algunas interacciones generan conversión mientras otras no.
+<p class="lead">
+El dashboard no solo compara porcentajes: propone una lectura causal preliminar sobre el desempeño de la campaña.
+En lugar de quedarse en la descripción del dataset, busca responder qué patrones ayudan a explicar por qué unas interacciones convierten y otras no.
 </p>
 
 <div class="playbook">
 
 <div class="playcard">
-
-<h3>El contacto previo importa</h3>
-
+<h3>El contacto previo cambia el resultado</h3>
 <p>
-Los clientes que han tenido interacción previa con el banco muestran una mayor probabilidad de conversión. 
-Esto sugiere que la familiaridad o relación previa puede influir en la disposición del cliente a aceptar una oferta.
+Los clientes con historial de interacción previa muestran una mayor probabilidad de conversión.
+Esto sugiere que la familiaridad con el banco o la oferta puede influir en la respuesta del cliente.
 </p>
-
+<div class="callout">
+La relación previa parece generar una ventaja clara frente a clientes que reciben la llamada sin contexto previo.
+</div>
 </div>
 
-
 <div class="playcard">
-
-<h3>El canal de contacto influye</h3>
-
+<h3>El canal no es neutral</h3>
 <p>
-No todos los canales generan el mismo resultado. 
-El análisis permite comparar el desempeño de distintos medios de contacto para identificar cuáles son más efectivos.
+No todos los medios de contacto producen el mismo efecto.
+La comparación entre canales permite identificar cuáles generan mejores resultados y cuáles tienen menor capacidad de conversión.
 </p>
-
+<div class="callout">
+El canal celular emerge como una vía más efectiva que otras formas de contacto observadas en la campaña.
+</div>
 </div>
 
-
 <div class="playcard">
-
-<h3>Más intentos no siempre significa más éxito</h3>
-
+<h3>Insistir más no mejora la campaña</h3>
 <p>
-El incremento en el número de intentos de contacto no necesariamente mejora la conversión. 
-En algunos casos puede generar fatiga en el cliente y reducir la efectividad de la campaña.
+Aumentar el número de intentos no necesariamente incrementa la conversión.
+De hecho, la evidencia apunta a que la sobreexposición puede reducir la efectividad del esfuerzo comercial.
 </p>
-
+<div class="callout">
+Más llamadas no significa mejor estrategia: insistir demasiado puede agotar al cliente y deteriorar el resultado.
+</div>
 </div>
 
-
 <div class="playcard">
-
-<h3>La calidad de la interacción también cuenta</h3>
-
+<h3>La calidad de la interacción también importa</h3>
 <p>
-Las llamadas de mayor duración suelen asociarse con mayores tasas de conversión, lo que sugiere que una interacción más profunda puede aumentar la probabilidad de éxito.
+Las llamadas más largas presentan mayores tasas de conversión.
+Aunque esta variable no sirve para anticipar el resultado antes del contacto, sí sugiere que una conversación más efectiva cambia el desenlace.
 </p>
-
+<div class="callout">
+No solo importa contactar: también importa sostener una interacción con suficiente calidad para mover la decisión del cliente.
+</div>
 </div>
 
 </div>
 
 </div>
 </section>
-
 
 <!-- CONCLUSIÓN -->
-
-<section class="section">
+<section class="section tight">
 <div class="wrap">
 
-<h2>Conclusión</h2>
+<h2>Qué decisiones sugiere este análisis</h2>
 
-<p style="color:#4b5563; max-width:800px;">
-El análisis muestra que el bajo desempeño de muchas campañas bancarias no se explica únicamente por el perfil de los clientes. 
-En cambio, la forma en que se gestiona el contacto —el canal utilizado, el historial de interacción y la dinámica de la llamada— parece jugar un papel clave en los resultados.
+<p class="lead">
+La evidencia obtenida no apunta a una solución basada únicamente en segmentación demográfica.
+Más bien, sugiere que mejorar la campaña requiere intervenir la estrategia de contacto.
 </p>
 
-<div class="callout">
-En este sentido, mejorar la efectividad de una campaña no implica necesariamente aumentar el número de llamadas, sino optimizar la estrategia de contacto con base en evidencia.
+<div class="playbook">
+
+<div class="playcard">
+<h3>Priorizar clientes con relación previa</h3>
+<p>
+Los recursos comerciales podrían concentrarse primero en clientes con mayor probabilidad de respuesta, especialmente aquellos con historial de interacción previa.
+</p>
+</div>
+
+<div class="playcard">
+<h3>Favorecer el canal más efectivo</h3>
+<p>
+La selección del canal no debería ser indiferente: usar el medio con mejor desempeño puede elevar la conversión sin aumentar el volumen de llamadas.
+</p>
+</div>
+
+<div class="playcard">
+<h3>Limitar intentos repetitivos</h3>
+<p>
+La campaña puede beneficiarse de reglas de recontacto más estrictas para evitar fatiga y reducir esfuerzos poco productivos.
+</p>
+</div>
+
+<div class="playcard">
+<h3>Mejorar la calidad de la interacción</h3>
+<p>
+La duración de la llamada sugiere una oportunidad de mejora en guiones, escucha y manejo de objeciones para convertir más conversaciones en resultados.
+</p>
+</div>
+
 </div>
 
 </div>
 </section>
 
-
 <footer class="footer">
-
-Visualización y Storytelling • Universidad de los Andes  
+Visualización y Storytelling • Universidad de los Andes<br>
 Grupo: <strong>DataTellers</strong> • Proyecto: Bank Marketing Dashboard
-
 </footer>
 
 </body>
