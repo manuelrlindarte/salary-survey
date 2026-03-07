@@ -2,16 +2,15 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>¿Por qué fracasan las campañas bancarias? | DataTellers</title>
+<title>Bank Marketing Dashboard | DataTellers</title>
 
 <style>
+
 body{
-font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial;
 margin:0;
 background:#f5f7fb;
 color:#1f2937;
-line-height:1.6;
 }
 
 .wrap{
@@ -21,396 +20,289 @@ padding:40px 20px;
 }
 
 .hero{
-background:linear-gradient(135deg,#07140d 0%, #0f172a 100%);
+background:#0f172a;
 color:white;
-padding:72px 20px 64px;
+padding:60px 20px;
 text-align:center;
 }
 
 .hero h1{
-font-size:46px;
-margin:0 0 14px;
-line-height:1.1;
-font-weight:800;
-}
-
-.hero .accent{
-color:#22c55e;
+font-size:40px;
+margin-bottom:10px;
 }
 
 .hero p{
-max-width:860px;
-margin:0 auto;
-opacity:.95;
-font-size:20px;
+opacity:.85;
+font-size:18px;
+max-width:750px;
+margin:auto;
 }
 
 .badge{
-background:rgba(255,255,255,0.08);
-padding:10px 18px;
-border-radius:999px;
+background:#1e293b;
+padding:8px 16px;
+border-radius:20px;
 display:inline-block;
-margin-top:22px;
+margin-top:15px;
 font-size:14px;
-border:1px solid rgba(255,255,255,0.12);
 }
 
 .section{
-padding:56px 0;
-}
-
-.section h2{
-font-size:32px;
-margin:0 0 10px;
-color:#111827;
-}
-
-.section-intro{
-max-width:850px;
-font-size:18px;
-color:#4b5563;
-margin-bottom:28px;
+padding:60px 0;
 }
 
 .grid{
 display:grid;
 grid-template-columns:repeat(3,1fr);
-gap:22px;
+gap:20px;
 margin-top:30px;
 }
 
 .card{
 background:white;
-padding:28px;
-border-radius:16px;
-box-shadow:0 4px 18px rgba(15,23,42,0.06);
-border:1px solid #e5e7eb;
+padding:25px;
+border-radius:10px;
+box-shadow:0 2px 10px rgba(0,0,0,0.05);
 }
 
 .card h3{
-margin:0 0 12px;
+margin-top:0;
 font-size:18px;
-letter-spacing:.4px;
-color:#166534;
 }
 
 .card p{
-margin:0;
 color:#4b5563;
-font-size:16px;
-}
-
-.split{
-display:grid;
-grid-template-columns:1.1fr .9fr;
-gap:28px;
-align-items:start;
-}
-
-.panel{
-background:white;
-padding:30px;
-border-radius:18px;
-box-shadow:0 4px 18px rgba(15,23,42,0.06);
-border:1px solid #e5e7eb;
-}
-
-.panel h3{
-margin-top:0;
-font-size:24px;
-margin-bottom:12px;
-}
-
-.panel p{
-color:#4b5563;
-font-size:17px;
-}
-
-.highlight{
-background:#ecfdf5;
-border-left:5px solid #22c55e;
-padding:18px 20px;
-border-radius:10px;
-font-size:16px;
-color:#14532d;
-margin-top:18px;
 }
 
 .dashboard{
 background:white;
-padding:22px;
-border-radius:18px;
-box-shadow:0 4px 18px rgba(15,23,42,0.06);
-border:1px solid #e5e7eb;
-margin-top:22px;
+padding:20px;
+border-radius:12px;
+box-shadow:0 2px 15px rgba(0,0,0,0.05);
 }
 
 iframe{
 border:none;
 width:100%;
-height:760px;
-border-radius:12px;
+height:600px;
 }
 
-.steps{
+.playbook{
 display:grid;
 grid-template-columns:repeat(2,1fr);
-gap:22px;
-margin-top:28px;
+gap:20px;
+margin-top:30px;
 }
 
-.step{
+.playcard{
 background:white;
-padding:26px;
-border-radius:16px;
-box-shadow:0 4px 18px rgba(15,23,42,0.06);
-border:1px solid #e5e7eb;
-}
-
-.step h3{
-margin:0 0 12px;
-font-size:20px;
-color:#111827;
-}
-
-.step p{
-margin:0;
-color:#4b5563;
-}
-
-.step strong{
-color:#166534;
+padding:25px;
+border-radius:10px;
+box-shadow:0 2px 10px rgba(0,0,0,0.05);
 }
 
 .callout{
-margin-top:14px;
-padding:14px 16px;
-background:#f0fdf4;
-border-radius:10px;
-font-size:15px;
-color:#166534;
-border:1px solid #bbf7d0;
-}
-
-.conclusion{
-background:linear-gradient(135deg,#0f172a 0%, #111827 100%);
-color:white;
-padding:44px 32px;
-border-radius:22px;
-margin-top:16px;
-}
-
-.conclusion h2{
-color:white;
-margin-bottom:14px;
-}
-
-.conclusion p{
-font-size:18px;
-opacity:.95;
-margin-bottom:0;
+margin-top:12px;
+padding:12px;
+background:#eef2ff;
+border-radius:8px;
+font-size:14px;
 }
 
 .footer{
 background:#0f172a;
 color:white;
 text-align:center;
-padding:24px 20px;
+padding:20px;
 margin-top:60px;
 font-size:14px;
-line-height:1.6;
 }
 
-@media (max-width: 900px){
-.grid,
-.split,
-.steps{
-grid-template-columns:1fr;
-}
-.hero h1{
-font-size:34px;
-}
-.hero p{
-font-size:18px;
-}
-iframe{
-height:620px;
-}
-}
 </style>
 </head>
 
 <body>
 
 <!-- HERO -->
+
 <section class="hero">
-  <div class="wrap">
-    <h1>¿Por qué fracasan la mayoría de <span class="accent">campañas bancarias</span>?</h1>
+<div class="wrap">
 
-    <p>
-      Evidencia de <strong>45.211 llamadas</strong> muestra que la conversión depende más de la
-      <strong>estrategia de contacto</strong> que del perfil del cliente.
-    </p>
+<h1>¿Qué hace realmente efectiva una campaña bancaria?</h1>
 
-    <div class="badge">
-      Visualización y Storytelling • Universidad de los Andes • Grupo DataTellers
-    </div>
-  </div>
+<p>
+Las campañas de contacto directo son una de las estrategias más utilizadas por los bancos para promover productos financieros. 
+Sin embargo, la mayoría de las llamadas no termina en una conversión. 
+Este proyecto explora qué factores realmente explican ese resultado.
+</p>
+
+<div class="badge">
+Visualización y Storytelling • Universidad de los Andes • Grupo DataTellers
+</div>
+
+</div>
 </section>
 
-<!-- CONTEXTO -->
+
+<!-- STORYTELLING -->
+
 <section class="section">
-  <div class="wrap">
-    <h2>La historia que cuentan los datos</h2>
-    <p class="section-intro">
-      Las campañas de marketing telefónico siguen siendo una herramienta frecuente en el sector bancario para promover productos financieros.
-      Sin embargo, la mayoría de las llamadas no logra convertir clientes. Frente a este problema, surge una pregunta clave:
-      <strong>¿el bajo desempeño se explica por el perfil del cliente o por la forma en que se realiza el contacto?</strong>
-    </p>
+<div class="wrap">
 
-    <div class="grid">
-      <div class="card">
-        <h3>1. EL PROBLEMA</h3>
-        <p>
-          La conversión general de la campaña es baja. Aunque se realizan miles de llamadas, solo una fracción de clientes acepta la oferta.
-          Esto convierte cada intento de contacto en una decisión costosa que debe justificarse mejor.
-        </p>
-      </div>
+<h2>La pregunta detrás de los datos</h2>
 
-      <div class="card">
-        <h3>2. LA HIPÓTESIS</h3>
-        <p>
-          Una explicación intuitiva sería pensar que la conversión depende principalmente del perfil del cliente:
-          su edad, ocupación o características demográficas. Pero los datos muestran que esa explicación es insuficiente.
-        </p>
-      </div>
+<p style="color:#6b7280; max-width:800px;">
+Cuando una campaña tiene baja conversión, una explicación común es pensar que el problema está en el perfil del cliente. 
+Sin embargo, los datos permiten explorar otra posibilidad: que el resultado dependa más de la estrategia de contacto que de las características demográficas del cliente.
+</p>
 
-      <div class="card">
-        <h3>3. EL HALLAZGO</h3>
-        <p>
-          La evidencia sugiere que la variable decisiva no es tanto quién recibe la llamada, sino
-          <strong>cómo se gestiona el contacto</strong>: el historial previo, el canal y el número de intentos
-          influyen más en la probabilidad de conversión.
-        </p>
-      </div>
-    </div>
-  </div>
+<div class="grid">
+
+<div class="card">
+<h3>PROBLEMA</h3>
+<p>
+Las campañas de marketing bancario implican miles de llamadas comerciales. 
+A pesar de este esfuerzo operativo, solo una pequeña proporción de clientes acepta la oferta, lo que plantea dudas sobre la efectividad de la estrategia de contacto.
+</p>
+</div>
+
+<div class="card">
+<h3>EVIDENCIA</h3>
+<p>
+El análisis se basa en más de <strong>45.000 interacciones de campañas bancarias</strong>. 
+Esto permite observar patrones en variables como canal de contacto, historial de llamadas y duración de la conversación.
+</p>
+</div>
+
+<div class="card">
+<h3>HALLAZGO</h3>
+<p>
+Los resultados sugieren que la conversión no depende únicamente del perfil del cliente. 
+Variables operativas como el canal utilizado, el número de intentos y la duración de la llamada tienen un impacto importante en la probabilidad de éxito.
+</p>
+</div>
+
+</div>
+
+</div>
 </section>
 
-<!-- DASHBOARD NARRATIVO -->
+
+<!-- DASHBOARD -->
+
 <section class="section">
-  <div class="wrap">
-    <h2>Dashboard narrativo</h2>
-    <p class="section-intro">
-      El tablero está organizado como una secuencia narrativa: primero muestra el <strong>problema general</strong>,
-      luego pone a prueba una <strong>hipótesis común</strong> sobre el perfil del cliente y, finalmente,
-      presenta la <strong>evidencia clave</strong> que explica mejor el comportamiento de la campaña.
-    </p>
+<div class="wrap">
 
-    <div class="dashboard">
-      <iframe src="https://lookerstudio.google.com/embed/reporting/263861ee-64c6-456e-b402-888a63ac146b/page/6HlqF"
-      allowfullscreen
-      sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox">
-      </iframe>
-    </div>
-  </div>
+<h2>Exploración interactiva del análisis</h2>
+
+<p style="color:#6b7280; font-size:15px; max-width:800px;">
+El dashboard permite explorar visualmente cómo diferentes factores influyen en la conversión de las campañas. 
+A través de los filtros y visualizaciones es posible identificar patrones entre el canal de contacto, el historial de interacciones con el cliente y la duración de las llamadas.
+</p>
+
+<div class="dashboard">
+
+<iframe src="https://lookerstudio.google.com/embed/reporting/263861ee-64c6-456e-b402-888a63ac146b/page/6HlqF"
+allowfullscreen
+sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox">
+</iframe>
+
+</div>
+
+</div>
 </section>
+
 
 <!-- INTERPRETACIÓN -->
+
 <section class="section">
-  <div class="wrap">
-    <div class="split">
-      <div class="panel">
-        <h3>Cómo leer este resultado</h3>
-        <p>
-          El dashboard muestra que, aunque existen diferencias entre perfiles de clientes, esas variaciones no bastan para explicar por sí solas
-          el bajo desempeño general de la campaña. En cambio, variables operativas como el <strong>contacto previo</strong>, el
-          <strong>canal utilizado</strong> y el <strong>número de intentos</strong> producen diferencias mucho más claras en la conversión.
-        </p>
+<div class="wrap">
 
-        <div class="highlight">
-          En otras palabras: el problema no parece estar únicamente en <strong>a quién se llama</strong>, sino sobre todo en
-          <strong>cómo y cuántas veces se le contacta</strong>.
-        </div>
-      </div>
+<h2>Interpretando los resultados</h2>
 
-      <div class="panel">
-        <h3>Qué revela la evidencia</h3>
-        <p>
-          Los clientes con historial de contacto previo muestran una probabilidad de conversión más alta. El canal celular obtiene mejores resultados
-          que otros medios, y el incremento en el número de intentos no mejora la campaña; por el contrario, puede deteriorar su efectividad.
-          Además, las llamadas más largas se asocian con mayores tasas de conversión, lo que sugiere que la calidad de la interacción también importa.
-        </p>
-      </div>
-    </div>
-  </div>
+<p style="color:#6b7280; max-width:800px;">
+Más allá de observar los valores agregados, el análisis busca identificar patrones que puedan ayudar a entender por qué algunas interacciones generan conversión mientras otras no.
+</p>
+
+<div class="playbook">
+
+<div class="playcard">
+
+<h3>El contacto previo importa</h3>
+
+<p>
+Los clientes que han tenido interacción previa con el banco muestran una mayor probabilidad de conversión. 
+Esto sugiere que la familiaridad o relación previa puede influir en la disposición del cliente a aceptar una oferta.
+</p>
+
+</div>
+
+
+<div class="playcard">
+
+<h3>El canal de contacto influye</h3>
+
+<p>
+No todos los canales generan el mismo resultado. 
+El análisis permite comparar el desempeño de distintos medios de contacto para identificar cuáles son más efectivos.
+</p>
+
+</div>
+
+
+<div class="playcard">
+
+<h3>Más intentos no siempre significa más éxito</h3>
+
+<p>
+El incremento en el número de intentos de contacto no necesariamente mejora la conversión. 
+En algunos casos puede generar fatiga en el cliente y reducir la efectividad de la campaña.
+</p>
+
+</div>
+
+
+<div class="playcard">
+
+<h3>La calidad de la interacción también cuenta</h3>
+
+<p>
+Las llamadas de mayor duración suelen asociarse con mayores tasas de conversión, lo que sugiere que una interacción más profunda puede aumentar la probabilidad de éxito.
+</p>
+
+</div>
+
+</div>
+
+</div>
 </section>
 
-<!-- IMPLICACIONES -->
+
+<!-- CONCLUSIÓN -->
+
 <section class="section">
-  <div class="wrap">
-    <h2>Qué decisiones habilita este análisis</h2>
-    <p class="section-intro">
-      Más que describir un conjunto de datos, este proyecto busca traducir hallazgos en decisiones prácticas para equipos de marketing y negocio.
-    </p>
+<div class="wrap">
 
-    <div class="steps">
-      <div class="step">
-        <h3>Priorizar mejor los contactos</h3>
-        <p>
-          No todos los clientes deben recibir el mismo esfuerzo comercial. La evidencia sugiere priorizar clientes con
-          <strong>historial de interacción previa</strong>, ya que en ellos la probabilidad de conversión es mayor.
-        </p>
-        <div class="callout">Decisión sugerida: asignar más recursos a segmentos con contacto previo exitoso o recurrente.</div>
-      </div>
+<h2>Conclusión</h2>
 
-      <div class="step">
-        <h3>Usar el canal más efectivo</h3>
-        <p>
-          El canal de contacto no es neutro. Algunos medios muestran mejores resultados que otros, por lo que la estrategia de campaña
-          debería ajustarse según el canal con mayor tasa de conversión.
-        </p>
-        <div class="callout">Decisión sugerida: favorecer el canal celular cuando el objetivo sea maximizar respuesta.</div>
-      </div>
+<p style="color:#4b5563; max-width:800px;">
+El análisis muestra que el bajo desempeño de muchas campañas bancarias no se explica únicamente por el perfil de los clientes. 
+En cambio, la forma en que se gestiona el contacto —el canal utilizado, el historial de interacción y la dinámica de la llamada— parece jugar un papel clave en los resultados.
+</p>
 
-      <div class="step">
-        <h3>Evitar la sobreexposición</h3>
-        <p>
-          Insistir más no implica convertir más. A medida que aumentan los intentos, la efectividad de la campaña disminuye,
-          lo que puede traducirse en fatiga del cliente y menor retorno del esfuerzo comercial.
-        </p>
-        <div class="callout">Decisión sugerida: limitar reglas de recontacto y evitar campañas excesivamente repetitivas.</div>
-      </div>
+<div class="callout">
+En este sentido, mejorar la efectividad de una campaña no implica necesariamente aumentar el número de llamadas, sino optimizar la estrategia de contacto con base en evidencia.
+</div>
 
-      <div class="step">
-        <h3>Mejorar la calidad de la interacción</h3>
-        <p>
-          La relación entre duración de llamada y conversión sugiere que no solo importa contactar, sino lograr conversaciones
-          más efectivas y con mayor calidad comercial.
-        </p>
-        <div class="callout">Decisión sugerida: fortalecer guiones, entrenamiento comercial y manejo de objeciones.</div>
-      </div>
-    </div>
-  </div>
+</div>
 </section>
 
-<!-- CIERRE -->
-<section class="section">
-  <div class="wrap">
-    <div class="conclusion">
-      <h2>Conclusión</h2>
-      <p>
-        Este análisis muestra que el bajo desempeño de las campañas bancarias no puede entenderse únicamente desde el perfil del cliente.
-        La evidencia apunta a que la conversión depende, sobre todo, de la <strong>estrategia de contacto</strong>. Por eso, mejorar resultados
-        no significa simplemente hacer más llamadas, sino diseñar interacciones más oportunas, mejor dirigidas y más efectivas.
-      </p>
-    </div>
-  </div>
-</section>
 
 <footer class="footer">
-  Visualización y Storytelling • Universidad de los Andes<br>
-  Grupo: <strong>DataTellers</strong> • Proyecto: <strong>¿Por qué fracasan la mayoría de campañas bancarias?</strong>
+
+Visualización y Storytelling • Universidad de los Andes  
+Grupo: <strong>DataTellers</strong> • Proyecto: Bank Marketing Dashboard
+
 </footer>
 
 </body>
