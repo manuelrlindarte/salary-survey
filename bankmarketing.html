@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>No es a quién llamas. Es cómo los llamas | DataTellers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --verde-oscuro: #0b3d2e;
+  --verde-medio: #145a3e;
+  --verde-claro: #22c55e;
+  --verde-suave: #dcfce7;
+  --verde-tenue: #f0fdf4;
+  --blanco: #ffffff;
+  --gris-texto: #374151;
+  --gris-suave: #6b7280;
+  --gris-fondo: #f8fafc;
+  --gris-linea: #e5e7eb;
+  --negro: #0f172a;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--gris-fondo);
+  color: var(--gris-texto);
+  overflow-x: hidden;
+}
+
+/* ─── HERO ─── */
+.hero {
+  background: var(--verde-oscuro);
+  position: relative;
+  padding: 80px 20px 70px;
+  text-align: center;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 20% 50%, rgba(34,197,94,0.08) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 60% at 80% 30%, rgba(34,197,94,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* Grid pattern overlay */
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 900px;
+  margin: auto;
+}
+
+.hero-label {
+  display: inline-block;
+  background: rgba(34,197,94,0.15);
+  border: 1px solid rgba(34,197,94,0.3);
+  color: var(--verde-claro);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 6px 16px;
+  border-radius: 20px;
+  margin-bottom: 28px;
+}
+
+.hero h1 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(36px, 6vw, 68px);
+  font-weight: 900;
+  color: var(--blanco);
+  line-height: 1.05;
+  margin-bottom: 12px;
+}
+
+.hero h1 em {
+  color: var(--verde-claro);
+  font-style: normal;
+}
+
+.hero-subtitle {
+  font-size: clamp(15px, 2vw, 19px);
+  color: rgba(255,255,255,0.65);
+  font-style: italic;
+  font-family: 'Playfair Display', serif;
+  margin-bottom: 28px;
+  line-height: 1.4;
+}
+
+.hero-desc {
+  font-size: 16px;
+  color: rgba(255,255,255,0.75);
+  max-width: 680px;
+  margin: 0 auto 36px;
+  line-height: 1.75;
+  font-weight: 300;
+}
+
+.hero-badge {
+  display: inline-block;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.6);
+  padding: 8px 20px;
+  border-radius: 30px;
+  font-size: 13px;
+  letter-spacing: 0.3px;
+}
+
+/* ─── STAT BAR ─── */
+.stat-bar {
+  background: var(--verde-medio);
+  padding: 22px 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.stat-bar-inner {
+  max-width: 1100px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  text-align: center;
+}
+
+.stat-item {
+  padding: 8px 0;
+}
+
+.stat-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--verde-claro);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.stat-label {
+  font-size: 11px;
+  color: rgba(255,255,255,0.55);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 500;
+}
+
+.stat-divider {
+  width: 1px;
+  background: rgba(255,255,255,0.1);
+  align-self: stretch;
+}
+
+/* ─── WRAP ─── */
+.wrap { max-width: 1100px; margin: auto; padding: 0 20px; }
+
+/* ─── SECTION ─── */
+.section { padding: 64px 0; }
+.section + .section { border-top: 1px solid var(--gris-linea); }
+
+.section-tag {
+  display: inline-block;
+  background: var(--verde-suave);
+  color: #166534;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 20px;
+  margin-bottom: 14px;
+}
+
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(24px, 3.5vw, 36px);
+  font-weight: 700;
+  color: var(--negro);
+  margin-bottom: 14px;
+  line-height: 1.2;
+}
+
+.section-lead {
+  font-size: 17px;
+  color: var(--gris-suave);
+  max-width: 720px;
+  line-height: 1.75;
+  margin-bottom: 40px;
+  font-weight: 300;
+}
+
+/* ─── CONTEXTO GRID ─── */
+.context-layout {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 48px;
+  align-items: start;
+}
+
+.context-text p {
+  font-size: 16px;
+  line-height: 1.85;
+  color: var(--gris-texto);
+  margin-bottom: 18px;
+  font-weight: 300;
+}
+
+.context-text p strong {
+  color: var(--negro);
+  font-weight: 600;
+}
+
+.context-highlight {
+  background: var(--verde-oscuro);
+  color: white;
+  padding: 28px;
+  border-radius: 14px;
+  margin-top: 6px;
+}
+
+.context-highlight p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.8);
+  margin: 0;
+  font-style: italic;
+}
+
+.context-highlight cite {
+  display: block;
+  margin-top: 14px;
+  font-style: normal;
+  color: var(--verde-claro);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* Cards de contexto */
+.ctx-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.ctx-card {
+  background: white;
+  border-radius: 12px;
+  padding: 22px 24px;
+  box-shadow: 0 1px 8px rgba(0,0,0,0.06);
+  border-left: 4px solid var(--verde-claro);
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.ctx-card-icon {
+  font-size: 22px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.ctx-card-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #166534;
+  margin-bottom: 4px;
+}
+
+.ctx-card h4 {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--negro);
+  margin-bottom: 5px;
+}
+
+.ctx-card p {
+  font-size: 14px;
+  color: var(--gris-suave);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ─── NARRATIVE FLOW ─── */
+.narrative-section {
+  background: var(--verde-oscuro);
+  padding: 64px 20px;
+  color: white;
+}
+
+.narrative-section .section-tag {
+  background: rgba(34,197,94,0.15);
+  color: var(--verde-claro);
+}
+
+.narrative-section .section-title {
+  color: white;
+}
+
+.narrative-section .section-lead {
+  color: rgba(255,255,255,0.65);
+}
+
+.flow-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  position: relative;
+  margin-top: 10px;
+}
+
+.flow-steps::before {
+  content: '';
+  position: absolute;
+  top: 38px;
+  left: 12%;
+  right: 12%;
+  height: 2px;
+  background: rgba(34,197,94,0.3);
+  z-index: 0;
+}
+
+.flow-step {
+  text-align: center;
+  padding: 0 10px;
+  position: relative;
+  z-index: 1;
+}
+
+.flow-dot {
+  width: 72px;
+  height: 72px;
+  background: rgba(34,197,94,0.12);
+  border: 2px solid rgba(34,197,94,0.4);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 18px;
+  font-size: 24px;
+  transition: all 0.3s;
+}
+
+.flow-step:hover .flow-dot {
+  background: var(--verde-claro);
+  border-color: var(--verde-claro);
+}
+
+.flow-step-num {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--verde-claro);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.flow-step h4 {
+  font-family: 'Playfair Display', serif;
+  font-size: 17px;
+  color: white;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+.flow-step p {
+  font-size: 13px;
+  color: rgba(255,255,255,0.6);
+  line-height: 1.6;
+  font-weight: 300;
+}
+
+/* ─── DASHBOARD EMBED ─── */
+.dashboard-section { background: white; padding: 64px 20px; }
+
+.dashboard-section .section-title { color: var(--negro); }
+
+.dashboard-wrapper {
+  background: #f8fafc;
+  border: 1px solid var(--gris-linea);
+  border-radius: 16px;
+  padding: 4px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+  overflow: hidden;
+}
+
+.dashboard-wrapper iframe {
+  width: 100%;
+  height: 680px;
+  border: none;
+  border-radius: 12px;
+  display: block;
+}
+
+.dashboard-caption {
+  margin-top: 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 18px 22px;
+  background: var(--verde-tenue);
+  border-radius: 10px;
+  border: 1px solid #bbf7d0;
+}
+
+.dashboard-caption-icon {
+  font-size: 20px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.dashboard-caption p {
+  font-size: 14px;
+  line-height: 1.65;
+  color: #166534;
+  margin: 0;
+}
+
+.dashboard-caption strong { font-weight: 600; }
+
+/* ─── INSIGHTS GRID ─── */
+.insights-section { background: var(--gris-fondo); }
+
+.insights-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.insight-card {
+  background: white;
+  border-radius: 14px;
+  padding: 30px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.insight-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.1);
+}
+
+.insight-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--verde-claro), var(--verde-medio));
+}
+
+.insight-number {
+  font-family: 'Playfair Display', serif;
+  font-size: 48px;
+  font-weight: 900;
+  color: var(--verde-suave);
+  line-height: 1;
+  margin-bottom: 4px;
+  letter-spacing: -2px;
+}
+
+.insight-card h3 {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--negro);
+  margin-bottom: 12px;
+  line-height: 1.3;
+}
+
+.insight-card p {
+  font-size: 14px;
+  color: var(--gris-suave);
+  line-height: 1.7;
+  margin-bottom: 16px;
+  font-weight: 300;
+}
+
+.insight-callout {
+  padding: 12px 16px;
+  background: var(--verde-tenue);
+  border-radius: 8px;
+  font-size: 13px;
+  color: #166534;
+  line-height: 1.55;
+  border-left: 3px solid var(--verde-claro);
+}
+
+/* ─── DECISIONES ─── */
+.decisions-section {
+  background: var(--negro);
+  padding: 64px 20px;
+}
+
+.decisions-section .section-tag {
+  background: rgba(34,197,94,0.12);
+  color: var(--verde-claro);
+}
+
+.decisions-section .section-title { color: white; }
+.decisions-section .section-lead { color: rgba(255,255,255,0.55); }
+
+.decisions-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.decision-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  padding: 28px;
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+  transition: background 0.2s;
+}
+
+.decision-card:hover {
+  background: rgba(255,255,255,0.07);
+}
+
+.decision-icon {
+  width: 44px;
+  height: 44px;
+  background: rgba(34,197,94,0.12);
+  border: 1px solid rgba(34,197,94,0.25);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.decision-card h4 {
+  font-size: 15px;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+
+.decision-card p {
+  font-size: 13px;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.65;
+  margin: 0;
+  font-weight: 300;
+}
+
+/* ─── CONCLUSION BANNER ─── */
+.conclusion-banner {
+  background: var(--verde-claro);
+  padding: 56px 20px;
+  text-align: center;
+}
+
+.conclusion-banner-inner {
+  max-width: 740px;
+  margin: auto;
+}
+
+.conclusion-banner .big-quote {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(24px, 4vw, 40px);
+  font-weight: 700;
+  color: var(--verde-oscuro);
+  line-height: 1.25;
+  margin-bottom: 18px;
+}
+
+.conclusion-banner p {
+  font-size: 16px;
+  color: rgba(11,61,46,0.75);
+  line-height: 1.7;
+  font-weight: 300;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ─── FOOTER ─── */
+.footer {
+  background: var(--verde-oscuro);
+  color: rgba(255,255,255,0.5);
+  text-align: center;
+  padding: 28px 20px;
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.footer strong { color: rgba(255,255,255,0.85); }
+.footer a { color: var(--verde-claro); text-decoration: none; }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 860px) {
+  .stat-bar-inner { grid-template-columns: repeat(2, 1fr); }
+  .context-layout { grid-template-columns: 1fr; gap: 28px; }
+  .flow-steps { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  .flow-steps::before { display: none; }
+  .insights-grid { grid-template-columns: 1fr; }
+  .decisions-grid { grid-template-columns: 1fr; }
+  .dashboard-wrapper iframe { height: 520px; }
+}
+
+@media (max-width: 500px) {
+  .stat-bar-inner { grid-template-columns: 1fr 1fr; }
+  .flow-steps { grid-template-columns: 1fr 1fr; }
+  .hero h1 { font-size: 32px; }
+}
+
+/* ─── FADE IN ANIMATION ─── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.hero-inner > * {
+  animation: fadeUp 0.7s ease both;
+}
+.hero-label         { animation-delay: 0.1s; }
+.hero h1            { animation-delay: 0.25s; }
+.hero-subtitle      { animation-delay: 0.35s; }
+.hero-desc          { animation-delay: 0.45s; }
+.hero-badge         { animation-delay: 0.55s; }
+</style>
+</head>
+
+<body>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-label">DataTellers · Bank Marketing · 2026</div>
+    <h1>No es a quién llamas.<br><em>Es cómo los llamas.</em></h1>
+    <p class="hero-subtitle">Cómo la estrategia de contacto supera al perfil del cliente en las campañas bancarias</p>
+    <p class="hero-desc">
+      Miles de llamadas. Una sola pregunta: ¿por qué tan pocas convierten? 
+      La respuesta no está en quién está al otro lado de la línea, sino en cómo, cuándo y con qué calidad se gestiona ese contacto.
+    </p>
+    <div class="hero-badge">
+      Visualización y Storytelling · Universidad de los Andes · Grupo DataTellers
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STAT BAR ═══ -->
+<div class="stat-bar">
+  <div class="stat-bar-inner">
+    <div class="stat-item">
+      <div class="stat-num">45.211</div>
+      <div class="stat-label">Llamadas analizadas</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">11,7%</div>
+      <div class="stat-label">Tasa de conversión</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">23,1%</div>
+      <div class="stat-label">Conversión con contacto previo</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">32,5%</div>
+      <div class="stat-label">Conversión llamadas +6 min</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CONTEXTO ═══ -->
+<section class="section">
+  <div class="wrap">
+
+    <span class="section-tag">Contexto del análisis</span>
+    <h2 class="section-title">La pregunta detrás de los datos</h2>
+
+    <div class="context-layout">
+
+      <div class="context-text">
+        <p>
+          El Banco Portugués realizó una serie de campañas de marketing telefónico con el objetivo de promover la suscripción a un <strong>depósito a término fijo</strong>. En total, se registraron más de 45.000 interacciones con clientes, cada una con información sobre el perfil del contacto, la estrategia de llamada y el resultado final.
+        </p>
+        <p>
+          La tasa de conversión fue apenas del <strong>11,7%</strong>. Frente a ese número, la reacción natural es buscar el problema en el cliente: ¿llamamos a las personas equivocadas? ¿El producto no es atractivo para ciertos segmentos?
+        </p>
+        <p>
+          Pero los datos cuentan una historia diferente. Cuando se analiza cómo varía la conversión según la <strong>forma en que se gestiona el contacto</strong> —el canal, el historial de llamadas, la duración de la conversación— emergen patrones mucho más claros y accionables que cualquier variable demográfica.
+        </p>
+        <p>
+          Este proyecto explora esa hipótesis: <strong>la estrategia supera al perfil</strong>. Y las implicaciones para quien diseña campañas de contacto son directas.
+        </p>
+
+        <div class="context-highlight">
+          <p>"El problema no es a quién llamas. El problema es que sigues llamando igual a todos, sin importar qué ha pasado antes."</p>
+          <cite>— Interpretación narrativa a partir del análisis DataTellers</cite>
+        </div>
+      </div>
+
+      <div class="ctx-cards">
+
+        <div class="ctx-card">
+          <div class="ctx-card-icon">🎯</div>
+          <div>
+            <div class="ctx-card-label">Problema</div>
+            <h4>Baja conversión a pesar del esfuerzo</h4>
+            <p>Miles de llamadas comerciales generan solo un 11,7% de suscripciones. El esfuerzo operativo no se traduce en resultados proporcionales.</p>
+          </div>
+        </div>
+
+        <div class="ctx-card">
+          <div class="ctx-card-icon">🔍</div>
+          <div>
+            <div class="ctx-card-label">Hipótesis a refutar</div>
+            <h4>¿El perfil del cliente explica todo?</h4>
+            <p>La explicación más intuitiva —que el problema está en el segmento de clientes— no resiste el análisis de los datos operativos.</p>
+          </div>
+        </div>
+
+        <div class="ctx-card">
+          <div class="ctx-card-icon">💡</div>
+          <div>
+            <div class="ctx-card-label">Hallazgo central</div>
+            <h4>La estrategia de contacto define el resultado</h4>
+            <p>Canal, historial previo, número de intentos y duración de llamada tienen un efecto medible y consistente en la probabilidad de conversión.</p>
+          </div>
+        </div>
+
+        <div class="ctx-card">
+          <div class="ctx-card-icon">📊</div>
+          <div>
+            <div class="ctx-card-label">Fuente de datos</div>
+            <h4>Bank Marketing Dataset — Banco Portugués</h4>
+            <p>Dataset público con 45.211 registros de campañas reales. Variables demográficas, financieras y operativas de cada contacto.</p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FLUJO NARRATIVO ═══ -->
+<section class="narrative-section">
+  <div class="wrap">
+
+    <span class="section-tag">Cómo está organizado el análisis</span>
+    <h2 class="section-title">Una historia en cuatro actos</h2>
+    <p class="section-lead">
+      El dashboard no es un inventario de gráficos. Es una secuencia argumentativa: parte de un problema real, cuestiona la explicación obvia y llega a conclusiones accionables.
+    </p>
+
+    <div class="flow-steps">
+
+      <div class="flow-step">
+        <div class="flow-dot">📉</div>
+        <div class="flow-step-num">Acto 1</div>
+        <h4>El Problema</h4>
+        <p>La campaña convierte apenas 1 de cada 9 llamadas. El punto de partida revela la brecha entre esfuerzo y resultado.</p>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-dot">🤔</div>
+        <div class="flow-step-num">Acto 2</div>
+        <h4>La Hipótesis Común</h4>
+        <p>¿Es la edad del cliente lo que explica la conversión? Los datos muestran diferencias, pero no responden el problema de fondo.</p>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-dot">⚡</div>
+        <div class="flow-step-num">Acto 3</div>
+        <h4>El Giro</h4>
+        <p>El contacto previo, el canal y la duración de la llamada muestran efectos mucho más claros. La estrategia importa más que el perfil.</p>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-dot">🚀</div>
+        <div class="flow-step-num">Acto 4</div>
+        <h4>La Decisión</h4>
+        <p>Cuatro palancas concretas para mejorar la conversión sin necesidad de cambiar el público objetivo de la campaña.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ DASHBOARD ═══ -->
+<section class="dashboard-section">
+  <div class="wrap">
+
+    <span class="section-tag">Dashboard interactivo</span>
+    <h2 class="section-title">Exploración interactiva del análisis</h2>
+    <p class="section-lead" style="margin-bottom: 24px;">
+      Cada módulo del dashboard corresponde a un momento de la historia. Léelos en orden para seguir el argumento, o explora libremente los patrones que más te interesen.
+    </p>
+
+    <div class="dashboard-wrapper">
+      <iframe
+        src="https://lookerstudio.google.com/embed/reporting/414cf36f-3f0e-4017-bc28-e4a4df531f53/page/6HlqF"
+        frameborder="0"
+        allowfullscreen
+        sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox">
+      </iframe>
+    </div>
+
+    <div class="dashboard-caption">
+      <div class="dashboard-caption-icon">💬</div>
+      <p>
+        <strong>Insight clave:</strong> la evidencia sugiere que hacer más llamadas no necesariamente mejora la conversión. La efectividad depende más de <strong>cómo se gestiona el contacto</strong> —canal, momento y calidad de la conversación— que de quién es el cliente al otro lado de la línea.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ INSIGHTS ═══ -->
+<section class="section insights-section">
+  <div class="wrap">
+
+    <span class="section-tag">Lo que revelan los datos</span>
+    <h2 class="section-title">Cuatro hallazgos que cambian la lectura</h2>
+    <p class="section-lead">
+      Más allá de los promedios, el análisis identifica patrones operativos que explican qué separa una llamada exitosa de una que no convierte.
+    </p>
+
+    <div class="insights-grid">
+
+      <div class="insight-card">
+        <div class="insight-number">01</div>
+        <h3>El contacto previo casi duplica la conversión</h3>
+        <p>
+          Los clientes con alguna interacción previa con el banco convierten al 23%, frente al 9,2% de quienes no tienen historial previo. No se trata de suerte: la relación previa genera confianza y reduce la fricción de decisión.
+        </p>
+        <div class="insight-callout">
+          📌 Priorizar el recontacto con clientes que ya conocen el banco no es solo una táctica — es la palanca más poderosa del dataset.
+        </div>
+      </div>
+
+      <div class="insight-card">
+        <div class="insight-number">02</div>
+        <h3>El canal celular supera a las demás vías de contacto</h3>
+        <p>
+          Aunque la diferencia con el teléfono fijo no es dramática, el canal celular muestra consistentemente mejores resultados. El canal desconocido (unknown) rinde casi un tercio menos, lo que sugiere que la calidad de la información de contacto también afecta el resultado.
+        </p>
+        <div class="insight-callout">
+          📌 Limpiar la base de datos de contactos y priorizar el celular como canal principal puede mejorar la tasa sin aumentar el volumen de llamadas.
+        </div>
+      </div>
+
+      <div class="insight-card">
+        <div class="insight-number">03</div>
+        <h3>Más intentos generan rendimientos decrecientes</h3>
+        <p>
+          El primer contacto convierte al 14,6%. El segundo y tercero bajan al 11,2%. A partir del cuarto intento, la conversión cae al 7,4%. Insistir no funciona — y además puede generar rechazo activo en el cliente.
+        </p>
+        <div class="insight-callout">
+          📌 Establecer un límite de 3 intentos por cliente y redirigir el esfuerzo hacia prospectos frescos mejoraría la eficiencia operativa de la campaña.
+        </div>
+      </div>
+
+      <div class="insight-card">
+        <div class="insight-number">04</div>
+        <h3>Las llamadas largas convierten hasta 32 veces más</h3>
+        <p>
+          Las llamadas de menos de 1 minuto convierten apenas al 0,19%. Las de más de 6 minutos alcanzan el 32,5%. La duración no causa la conversión —un cliente interesado naturalmente habla más— pero señala que la calidad de la conversación es determinante.
+        </p>
+        <div class="insight-callout">
+          📌 Invertir en guiones más efectivos, entrenamiento en escucha activa y manejo de objeciones puede mover la aguja más que aumentar el número de llamadas.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ DECISIONES ═══ -->
+<section class="decisions-section">
+  <div class="wrap">
+
+    <span class="section-tag">Implicaciones prácticas</span>
+    <h2 class="section-title">Qué hacer con esta información</h2>
+    <p class="section-lead">
+      El análisis no termina en los datos. Termina en decisiones. Estas son las cuatro intervenciones que la evidencia sugiere para mejorar la efectividad de la campaña.
+    </p>
+
+    <div class="decisions-grid">
+
+      <div class="decision-card">
+        <div class="decision-icon">🔁</div>
+        <div>
+          <h4>Priorizar clientes con contacto previo</h4>
+          <p>Antes de llamar a prospectos nuevos, agotar el potencial de quienes ya tuvieron alguna interacción con el banco. La probabilidad de conversión es 2,5 veces mayor.</p>
+        </div>
+      </div>
+
+      <div class="decision-card">
+        <div class="decision-icon">📱</div>
+        <div>
+          <h4>Favorecer el canal celular</h4>
+          <p>Sistematizar el uso del celular como canal principal y eliminar los contactos sin información de canal válida. Pequeña mejora operativa, impacto medible en tasa de conversión.</p>
+        </div>
+      </div>
+
+      <div class="decision-card">
+        <div class="decision-icon">🚫</div>
+        <div>
+          <h4>Limitar intentos de recontacto</h4>
+          <p>Establecer una regla de negocio que limite a 3 los intentos por cliente en una misma campaña. Más allá de ese punto, el esfuerzo no se traduce en resultados y puede deteriorar la relación.</p>
+        </div>
+      </div>
+
+      <div class="decision-card">
+        <div class="decision-icon">🎙️</div>
+        <div>
+          <h4>Mejorar la calidad de la conversación</h4>
+          <p>La duración de la llamada es un proxy de calidad. Invertir en formación de agentes, guiones más efectivos y mejores herramientas de manejo de objeciones puede cambiar los resultados sin tocar el presupuesto de contactos.</p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ CONCLUSIÓN ═══ -->
+<section class="conclusion-banner">
+  <div class="conclusion-banner-inner">
+    <p class="big-quote">"La campaña no falla porque llama a las personas equivocadas. Falla porque no está aprendiendo de cómo llama."</p>
+    <p>Los datos no piden un público diferente. Piden una estrategia de contacto más inteligente: con memoria, con criterio de canal y con calidad de conversación.</p>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="footer">
+  Visualización y Storytelling · Universidad de los Andes<br>
+  Grupo: <strong>DataTellers</strong> · María Fernanda De La Torre · Fabián Jair Sarmiento · Winston Andrés Licona · Manuel Ricardo Lindarte<br>
+  Fuente: <a href="https://www.kaggle.com/datasets/abdelazizsami/bank-marketing" target="_blank">Bank Marketing Dataset — Banco Portugués (Kaggle)</a>
+</footer>
+
+</body>
+</html>
