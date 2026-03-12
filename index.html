@@ -3,447 +3,961 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bank Marketing Dashboard | DataTellers</title>
+<title>Análisis de Rangos Salariales | Ask A Manager 2021</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
-
-body{
-font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial;
-margin:0;
-background:#f5f7fb;
-color:#1f2937;
+:root {
+  --azul-oscuro: #0f2744;
+  --azul-medio: #1a3a6b;
+  --azul-claro: #3b82f6;
+  --azul-suave: #dbeafe;
+  --azul-tenue: #eff6ff;
+  --acento: #f59e0b;
+  --acento-suave: #fef3c7;
+  --blanco: #ffffff;
+  --gris-texto: #374151;
+  --gris-suave: #6b7280;
+  --gris-fondo: #f8fafc;
+  --gris-linea: #e5e7eb;
+  --negro: #0f172a;
 }
 
-.wrap{
-max-width:1200px;
-margin:auto;
-padding:28px 20px;
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--gris-fondo);
+  color: var(--gris-texto);
+  overflow-x: hidden;
 }
 
-.hero{
-background:#0b3d2e;
-color:white;
-padding:50px 20px 40px;
-text-align:center;
+/* ─── HERO ─── */
+.hero {
+  background: var(--azul-oscuro);
+  position: relative;
+  padding: 80px 20px 70px;
+  text-align: center;
+  overflow: hidden;
 }
 
-.hero h1{
-font-size:40px;
-margin-bottom:10px;
-line-height:1.1;
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 55% 50% at 15% 50%, rgba(59,130,246,0.1) 0%, transparent 70%),
+    radial-gradient(ellipse 45% 55% at 85% 25%, rgba(245,158,11,0.07) 0%, transparent 70%);
+  pointer-events: none;
 }
 
-.hero p{
-opacity:.85;
-font-size:18px;
-max-width:760px;
-margin:auto;
-line-height:1.5;
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: 44px 44px;
+  pointer-events: none;
 }
 
-.badge{
-background:#1e293b;
-padding:8px 16px;
-border-radius:20px;
-display:inline-block;
-margin-top:15px;
-font-size:14px;
+.hero-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 860px;
+  margin: auto;
 }
 
-.section{
-padding:35px 0;
+.hero-label {
+  display: inline-block;
+  background: rgba(59,130,246,0.15);
+  border: 1px solid rgba(59,130,246,0.3);
+  color: #93c5fd;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  padding: 6px 16px;
+  border-radius: 20px;
+  margin-bottom: 26px;
 }
 
-.section h2{
-margin:0 0 10px;
-font-size:30px;
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(32px, 5.5vw, 60px);
+  font-weight: 900;
+  color: var(--blanco);
+  line-height: 1.1;
+  margin-bottom: 14px;
 }
 
-.divider{
-height:1px;
-background:#e5e7eb;
-margin:18px 0 10px;
+.hero h1 em {
+  color: var(--acento);
+  font-style: normal;
 }
 
-.grid{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:20px;
-margin-top:15px;
+.hero-subtitle {
+  font-size: clamp(14px, 2vw, 17px);
+  color: rgba(255,255,255,0.6);
+  font-style: italic;
+  font-family: 'Playfair Display', serif;
+  margin-bottom: 24px;
+  line-height: 1.5;
 }
 
-.card{
-background:white;
-padding:25px;
-border-radius:10px;
-box-shadow:0 2px 10px rgba(0,0,0,0.05);
+.hero-desc {
+  font-size: 15px;
+  color: rgba(255,255,255,0.7);
+  max-width: 640px;
+  margin: 0 auto 32px;
+  line-height: 1.8;
+  font-weight: 300;
 }
 
-.card h3{
-margin-top:0;
-font-size:18px;
-margin-bottom:10px;
+.hero-badge {
+  display: inline-block;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: rgba(255,255,255,0.55);
+  padding: 8px 20px;
+  border-radius: 30px;
+  font-size: 12px;
+  letter-spacing: 0.3px;
 }
 
-.card p{
-color:#4b5563;
-margin:0;
-line-height:1.6;
+/* ─── STAT BAR ─── */
+.stat-bar {
+  background: var(--azul-medio);
+  padding: 22px 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
 }
 
-.flow{
-display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:14px;
-margin:18px 0 18px;
+.stat-bar-inner {
+  max-width: 1100px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  text-align: center;
 }
 
-.flow-step{
-background:white;
-border-radius:10px;
-padding:16px 14px;
-box-shadow:0 2px 10px rgba(0,0,0,0.05);
-text-align:center;
-position:relative;
-border-top:4px solid #22c55e;
+.stat-item { padding: 8px 0; }
+
+.stat-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--acento);
+  line-height: 1;
+  margin-bottom: 4px;
 }
 
-.flow-step h4{
-margin:0 0 6px;
-font-size:15px;
-color:#0f172a;
-letter-spacing:.2px;
+.stat-label {
+  font-size: 11px;
+  color: rgba(255,255,255,0.5);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 500;
 }
 
-.flow-step p{
-margin:0;
-font-size:13px;
-color:#6b7280;
-line-height:1.4;
+.stat-def {
+  font-size: 10px;
+  color: rgba(255,255,255,0.3);
+  font-style: italic;
+  margin-top: 3px;
+  line-height: 1.4;
 }
 
-.flow-step:not(:last-child)::after{
-content:"→";
-position:absolute;
-right:-11px;
-top:50%;
-transform:translateY(-50%);
-font-size:20px;
-color:#94a3b8;
-font-weight:bold;
+/* ─── WRAP ─── */
+.wrap { max-width: 1100px; margin: auto; padding: 0 20px; }
+
+/* ─── SECTION ─── */
+.section { padding: 60px 0; }
+.section + .section { border-top: 1px solid var(--gris-linea); }
+
+.section-tag {
+  display: inline-block;
+  background: var(--azul-suave);
+  color: #1e40af;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 20px;
+  margin-bottom: 14px;
 }
 
-.dashboard{
-background:white;
-padding:20px;
-border-radius:12px;
-box-shadow:0 2px 15px rgba(0,0,0,0.05);
-margin-top:10px;
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(22px, 3vw, 34px);
+  font-weight: 700;
+  color: var(--negro);
+  margin-bottom: 12px;
+  line-height: 1.2;
 }
 
-iframe{
-border:none;
-width:100%;
-height:650px;
+.section-lead {
+  font-size: 16px;
+  color: var(--gris-suave);
+  max-width: 720px;
+  line-height: 1.8;
+  margin-bottom: 36px;
+  font-weight: 300;
 }
 
-.insight{
-margin-top:15px;
-padding:14px;
-background:#eef2ff;
-border-radius:8px;
-font-size:14px;
-color:#374151;
-line-height:1.5;
+/* ─── DASHBOARD EMBED ─── */
+.dashboard-section { background: white; padding: 60px 20px; }
+
+.dashboard-wrapper {
+  background: var(--gris-fondo);
+  border: 1px solid var(--gris-linea);
+  border-radius: 16px;
+  padding: 4px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+  overflow: hidden;
 }
 
-.playbook{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:20px;
-margin-top:15px;
+.dashboard-wrapper iframe {
+  width: 100%;
+  height: 680px;
+  border: none;
+  border-radius: 12px;
+  display: block;
 }
 
-.playcard{
-background:white;
-padding:25px;
-border-radius:10px;
-box-shadow:0 2px 10px rgba(0,0,0,0.05);
+.dashboard-caption {
+  margin-top: 18px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px 20px;
+  background: var(--azul-tenue);
+  border-radius: 10px;
+  border: 1px solid #bfdbfe;
 }
 
-.playcard h3{
-margin:0 0 10px;
-font-size:20px;
+.dashboard-caption p {
+  font-size: 13px;
+  line-height: 1.65;
+  color: #1e40af;
+  margin: 0;
 }
 
-.playcard p{
-margin:0;
-color:#4b5563;
-line-height:1.6;
+/* ─── VARIABLES TABLE ─── */
+.table-section { background: var(--gris-fondo); }
+
+.var-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+  font-size: 13px;
 }
 
-.callout{
-margin-top:12px;
-padding:12px;
-background:#eef2ff;
-border-radius:8px;
-font-size:14px;
-line-height:1.5;
-color:#374151;
+.var-table thead tr {
+  background: var(--azul-oscuro);
+  color: white;
 }
 
-.footer{
-background:#0b3d2e;
-color:white;
-text-align:center;
-padding:20px;
-margin-top:30px;
-font-size:14px;
-line-height:1.6;
+.var-table thead th {
+  padding: 14px 18px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.5px;
 }
 
-@media (max-width: 900px){
-.grid,
-.playbook,
-.flow{
-grid-template-columns:1fr;
+.var-table tbody tr {
+  border-bottom: 1px solid var(--gris-linea);
+  transition: background 0.15s;
 }
 
-.flow-step:not(:last-child)::after{
-content:"↓";
-right:auto;
-left:50%;
-bottom:-16px;
-top:auto;
-transform:translateX(-50%);
+.var-table tbody tr:last-child { border-bottom: none; }
+.var-table tbody tr:hover { background: var(--azul-tenue); }
+
+.var-table tbody td {
+  padding: 13px 18px;
+  vertical-align: top;
+  line-height: 1.6;
+  color: var(--gris-texto);
 }
 
-.hero h1{
-font-size:32px;
+.var-table tbody td:first-child {
+  font-family: monospace;
+  font-size: 12px;
+  color: #1e40af;
+  background: var(--azul-tenue);
+  font-weight: 600;
+  white-space: nowrap;
 }
 
-.hero p{
-font-size:16px;
+.badge-tipo {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-iframe{
-height:560px;
-}
+.badge-texto { background: #fef3c7; color: #92400e; }
+.badge-num   { background: #dcfce7; color: #166534; }
+.badge-bin   { background: #ede9fe; color: #5b21b6; }
+
+/* ─── ETL STEPS ─── */
+.etl-section { background: white; }
+
+.etl-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  max-width: 860px;
+  position: relative;
 }
 
+.etl-steps::before {
+  content: '';
+  position: absolute;
+  left: 21px;
+  top: 28px;
+  bottom: 28px;
+  width: 2px;
+  background: var(--azul-suave);
+}
+
+.etl-step {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  padding: 24px 0;
+  position: relative;
+}
+
+.etl-step + .etl-step {
+  border-top: 1px solid var(--gris-linea);
+}
+
+.etl-num {
+  width: 44px;
+  height: 44px;
+  background: var(--azul-oscuro);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  font-weight: 700;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.etl-step-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--negro);
+  margin-bottom: 8px;
+}
+
+.etl-step-body {
+  font-size: 14px;
+  color: var(--gris-suave);
+  line-height: 1.75;
+  font-weight: 300;
+}
+
+.etl-step-body strong { color: var(--negro); font-weight: 600; }
+
+.etl-step-body ul {
+  list-style: none;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.etl-step-body ul li {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+.etl-step-body ul li::before {
+  content: '›';
+  color: var(--azul-claro);
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.code-block {
+  background: #0f172a;
+  color: #86efac;
+  padding: 14px 18px;
+  border-radius: 8px;
+  font-family: monospace;
+  font-size: 12px;
+  margin-top: 10px;
+  line-height: 1.7;
+  overflow-x: auto;
+}
+
+.code-block .comment { color: #94a3b8; }
+.code-block .keyword { color: #93c5fd; }
+.code-block .string  { color: #fde68a; }
+
+/* ─── VARIABLES DERIVADAS ─── */
+.derived-section { background: var(--gris-fondo); }
+
+.derived-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+.derived-card {
+  background: white;
+  border-radius: 12px;
+  padding: 22px 24px;
+  border: 1px solid var(--gris-linea);
+  border-left: 4px solid var(--azul-claro);
+  box-shadow: 0 1px 6px rgba(0,0,0,0.04);
+}
+
+.derived-name {
+  font-family: monospace;
+  font-size: 13px;
+  font-weight: 700;
+  color: #1e40af;
+  margin-bottom: 6px;
+}
+
+.derived-card p {
+  font-size: 13px;
+  color: var(--gris-suave);
+  line-height: 1.65;
+  margin: 0;
+  font-weight: 300;
+}
+
+.derived-card p strong { color: var(--negro); font-weight: 600; }
+
+/* ─── CREDITS ─── */
+.credits-section { background: var(--azul-oscuro); padding: 50px 20px; }
+
+.credits-section .section-tag {
+  background: rgba(59,130,246,0.15);
+  color: #93c5fd;
+}
+
+.credits-section .section-title { color: white; }
+
+.credits-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.credit-card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  padding: 22px;
+}
+
+.credit-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #93c5fd;
+  margin-bottom: 8px;
+}
+
+.credit-card p {
+  font-size: 13px;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.6;
+  margin: 0;
+  font-weight: 300;
+}
+
+.credit-card a {
+  color: var(--acento);
+  text-decoration: none;
+}
+
+.trm-banner {
+  background: rgba(245,158,11,0.1);
+  border: 1px solid rgba(245,158,11,0.25);
+  border-radius: 12px;
+  padding: 18px 22px;
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+
+.trm-banner-icon { font-size: 22px; }
+
+.trm-banner p {
+  font-size: 13px;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.trm-banner strong { color: var(--acento); }
+
+/* ─── FOOTER ─── */
+.footer {
+  background: #080f1e;
+  color: rgba(255,255,255,0.4);
+  text-align: center;
+  padding: 24px 20px;
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+.footer strong { color: rgba(255,255,255,0.7); }
+.footer a { color: #93c5fd; text-decoration: none; }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 860px) {
+  .stat-bar-inner { grid-template-columns: repeat(2, 1fr); }
+  .derived-grid { grid-template-columns: 1fr; }
+  .credits-grid { grid-template-columns: 1fr; }
+  .dashboard-wrapper iframe { height: 520px; }
+  .var-table { font-size: 12px; }
+}
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.hero-inner > * { animation: fadeUp 0.65s ease both; }
+.hero-label      { animation-delay: 0.1s; }
+.hero h1         { animation-delay: 0.22s; }
+.hero-subtitle   { animation-delay: 0.34s; }
+.hero-desc       { animation-delay: 0.44s; }
+.hero-badge      { animation-delay: 0.54s; }
 </style>
 </head>
-
 <body>
 
-<!-- HERO -->
+<!-- ═══ HERO ═══ -->
 <section class="hero">
-<div class="wrap">
-
-<h1>¿Qué hace realmente efectiva una campaña bancaria?</h1>
-
-<p>
-Las campañas de contacto directo son una de las estrategias más utilizadas por los bancos para promover productos financieros.
-Sin embargo, la mayoría de las llamadas no termina en una conversión. Este proyecto explora qué factores realmente explican ese resultado.
-</p>
-
-<div class="badge">
-Visualización y Storytelling • Universidad de los Andes • Grupo DataTellers
-</div>
-
-</div>
+  <div class="hero-inner">
+    <div class="hero-label">Visualización y Storytelling · U. de los Andes · 2026</div>
+    <h1>¿Cuánto gana el mundo<br>en <em>tu industria</em>?</h1>
+    <p class="hero-subtitle">Análisis exploratorio de rangos salariales globales — Ask A Manager Survey 2021</p>
+    <p class="hero-desc">
+      Más de 28.000 profesionales respondieron una encuesta sobre sus salarios. 
+      Este análisis explora qué industrias, roles y perfiles concentran los ingresos más altos, 
+      convirtiendo todo a pesos colombianos para dar contexto local a datos globales.
+    </p>
+    <div class="hero-badge">
+      Manuel Ricardo Lindarte G. · Análisis Exploratorio · Datos: AskAManager.org
+    </div>
+  </div>
 </section>
 
-<!-- CONTEXTO -->
-<section class="section">
-<div class="wrap">
-
-<h2>La pregunta detrás de los datos</h2>
-
-<p style="color:#6b7280; max-width:800px; line-height:1.6; margin:0;">
-Cuando una campaña tiene baja conversión, una explicación común es pensar que el problema está en el perfil del cliente.
-Sin embargo, los datos permiten explorar otra posibilidad: que el resultado dependa más de la estrategia de contacto que de las características demográficas del cliente.
-</p>
-
-<div class="divider"></div>
-
-<div class="grid">
-
-<div class="card">
-<h3>PROBLEMA</h3>
-<p>
-Las campañas de marketing bancario implican miles de llamadas comerciales. A pesar de este esfuerzo operativo, solo una pequeña proporción de clientes acepta la oferta, lo que plantea dudas sobre la efectividad de la estrategia de contacto.
-</p>
-</div>
-
-<div class="card">
-<h3>EVIDENCIA</h3>
-<p>
-El análisis se basa en más de <strong>45.000 interacciones de campañas bancarias</strong>. Esto permite observar patrones en variables como canal de contacto, historial de llamadas y duración de la conversación.
-</p>
-</div>
-
-<div class="card">
-<h3>HALLAZGO</h3>
-<p>
-Los resultados sugieren que la conversión no depende únicamente del perfil del cliente. Variables operativas como el canal utilizado, el número de intentos y la duración de la llamada tienen un impacto importante en la probabilidad de éxito.
-</p>
-</div>
-
-</div>
-
-</div>
-</section>
-
-<!-- DASHBOARD -->
-<section class="section">
-<div class="wrap">
-
-<h2>Exploración interactiva del análisis</h2>
-
-<p style="color:#6b7280; font-size:14px; max-width:820px; line-height:1.6; margin:0;">
-El dashboard está organizado como una secuencia narrativa para responder la pregunta central del proyecto:
-si la baja conversión se explica por el perfil del cliente o por la forma en que se gestiona el contacto.
-</p>
-
-<div class="flow">
-  <div class="flow-step">
-    <h4>PROBLEMA</h4>
-    <p>La campaña presenta una tasa de conversión baja.</p>
-  </div>
-  <div class="flow-step">
-    <h4>HIPÓTESIS</h4>
-    <p>Podría pensarse que el perfil del cliente explica el resultado.</p>
-  </div>
-  <div class="flow-step">
-    <h4>INSIGHT</h4>
-    <p>La estrategia de contacto muestra un efecto más claro.</p>
-  </div>
-  <div class="flow-step">
-    <h4>DECISIÓN</h4>
-    <p>Optimizar canal, recontacto y calidad de interacción.</p>
+<!-- ═══ STAT BAR ═══ -->
+<div class="stat-bar">
+  <div class="stat-bar-inner">
+    <div class="stat-item">
+      <div class="stat-num">28.000+</div>
+      <div class="stat-label">Respuestas analizadas</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">3.670</div>
+      <div class="stat-label">TRM utilizada (COP/USD)</div>
+      <div class="stat-def">7 de febrero de 2026</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">~70%</div>
+      <div class="stat-label">Respuestas desde EE.UU.</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">25</div>
+      <div class="stat-label">Variables en dataset final</div>
+      <div class="stat-def">17 originales + 8 derivadas</div>
+    </div>
   </div>
 </div>
 
-<div class="dashboard">
+<!-- ═══ DASHBOARD ═══ -->
+<section class="dashboard-section">
+  <div class="wrap">
+    <span class="section-tag">Dashboard interactivo</span>
+    <h2 class="section-title">Exploración de los datos</h2>
+    <p class="section-lead" style="margin-bottom: 24px;">
+      El dashboard muestra cuatro módulos: total de respuestas, distribución geográfica, 
+      relación entre industria y salario promedio en COP, y un análisis libre de brechas por género y experiencia.
+    </p>
 
-<iframe width="600" height="450" src="https://lookerstudio.google.com/embed/reporting/414cf36f-3f0e-4017-bc28-e4a4df531f53/page/6HlqF" frameborder="0" style="border:0" allowfullscreen sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe>
+    <div class="dashboard-wrapper">
+      <iframe
+        src="https://lookerstudio.google.com/embed/reporting/e6801701-9df0-4c90-8721-b6e3420663b5/page/PNtnF"
+        frameborder="0"
+        allowfullscreen
+        sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox">
+      </iframe>
+    </div>
 
-</div>
-
-<div class="insight">
-<strong>Insight clave:</strong> la evidencia sugiere que hacer más llamadas no necesariamente mejora la conversión.
-La efectividad parece depender más de <strong>cómo se gestiona el contacto</strong> que de <strong>quién es el cliente</strong>.
-</div>
-
-</div>
+    <div class="dashboard-caption">
+      <span>💡</span>
+      <p>
+        <strong>Nota de lectura:</strong> todos los valores salariales del dashboard están expresados en 
+        pesos colombianos (COP), convertidos con la TRM del 7 de febrero de 2026 
+        (<strong>1 USD = $3.670,20 COP</strong>). Los salarios reportados originalmente en otras monedas 
+        fueron primero convertidos a USD usando las tasas de cambio correspondientes.
+      </p>
+    </div>
+  </div>
 </section>
 
-<!-- INTERPRETACIÓN -->
-<section class="section">
-<div class="wrap">
+<!-- ═══ VARIABLES ORIGINALES ═══ -->
+<section class="section table-section">
+  <div class="wrap">
+    <span class="section-tag">Documentación técnica</span>
+    <h2 class="section-title">Variables en la base de datos original</h2>
+    <p class="section-lead">
+      Los nombres de las variables se mantienen en inglés tal como aparecen en la fuente original, 
+      para facilitar su trazabilidad. Las descripciones están en español.
+    </p>
 
-<h2>Cómo interpretar los resultados</h2>
-
-<p style="color:#6b7280; max-width:800px; line-height:1.6; margin:0;">
-Más allá de observar valores agregados, el análisis busca identificar patrones que expliquen por qué algunas interacciones generan conversión mientras otras no.
-</p>
-
-<div class="playbook">
-
-<div class="playcard">
-<h3>El contacto previo importa</h3>
-<p>
-Los clientes que han tenido interacción previa con el banco muestran una mayor probabilidad de conversión, lo que sugiere que la relación previa con la institución influye en la decisión del cliente.
-</p>
-<div class="callout">
-La relación previa parece generar una ventaja clara frente a clientes que reciben la llamada sin contexto previo.
-</div>
-</div>
-
-<div class="playcard">
-<h3>El canal de contacto influye</h3>
-<p>
-No todos los canales generan el mismo resultado. El análisis permite comparar el desempeño de distintos medios para identificar cuáles son más efectivos.
-</p>
-<div class="callout">
-El canal celular emerge como una vía más efectiva que otras formas de contacto observadas en la campaña.
-</div>
-</div>
-
-<div class="playcard">
-<h3>Más intentos no siempre significa más éxito</h3>
-<p>
-El incremento en el número de intentos de contacto no necesariamente mejora la conversión y puede generar fatiga en el cliente.
-</p>
-<div class="callout">
-Más llamadas no significa mejor estrategia: insistir demasiado puede agotar al cliente y deteriorar el resultado.
-</div>
-</div>
-
-<div class="playcard">
-<h3>La calidad de la interacción también cuenta</h3>
-<p>
-Las llamadas de mayor duración suelen asociarse con mayores tasas de conversión, lo que sugiere que una interacción más profunda puede aumentar la probabilidad de éxito.
-</p>
-<div class="callout">
-No solo importa contactar: también importa sostener una interacción con suficiente calidad para mover la decisión del cliente.
-</div>
-</div>
-
-</div>
-
-</div>
+    <table class="var-table">
+      <thead>
+        <tr>
+          <th>Variable (nombre original)</th>
+          <th>Tipo</th>
+          <th>Descripción</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Timestamp</td>
+          <td><span class="badge-tipo badge-texto">Texto</span></td>
+          <td>Fecha y hora en que se registró la respuesta en el formulario.</td>
+        </tr>
+        <tr>
+          <td>How old are you?</td>
+          <td><span class="badge-tipo badge-texto">Texto</span></td>
+          <td>Rango etario del encuestado, expresado en categorías (ej. 25-34, 35-44).</td>
+        </tr>
+        <tr>
+          <td>What industry do you work in?</td>
+          <td><span class="badge-tipo badge-texto">Texto</span></td>
+          <td>Industria o sector económico en el que se desempeña el encuestado. Campo de texto libre con alta variabilidad en las respuestas.</td>
+        </tr>
+        <tr>
+          <td>Job title</td>
+          <td><span class="badge-tipo badge-texto">Texto</span></td>
+          <td>Cargo o rol laboral reportado por el encuestado. Campo de texto libre.</td>
+        </tr>
+        <tr>
+          <td>Additional context on job title</td>
+          <td><span class="badge-tipo badge-texto">Texto</span></td>
+          <td>Contexto adicional opcional sobre el cargo, proporcionado por el encuestado.</td>
+        </tr>
+        <tr>
+          <td>What is your annual salary?</td>
+          <td><span class="badge-tipo badge-num">Numérico</span></td>
+          <td>Salario anual reportado en la moneda local del encuestado. Puede contener valores atípicos o no estandarizados (ej. "80" en lugar de "80000").</td>
+        </tr>
+        <tr>
+          <td>How much additional monetary compensation do you get, if any?</td>
+          <td><span class="badge-tipo badge-num">Numérico</span></td>
+          <td>Compensación monetaria adicional anual (bonos, incentivos, comisiones u otros). Puede estar vacío si no aplica.</td>
+        </tr>
+        <tr>
+          <td>Please indicate the currency</td>
+          <td><span class="badge-tipo badge-texto">Texto</span></td>
+          <td>Moneda en la que el encuestado reporta su salario y compensaciones (ej. USD, GBP, EUR, CAD).</td>
+        </tr>
+        <tr>
+          <td>Additional context on income</td>
+          <td><span class="badge-tipo badge-texto">Texto</span></td>
+          <td>Información adicional opcional sobre el ingreso reportado.</td>
+        </tr>
+        <tr>
+          <td>What country do you work in?</td>
+          <td><span class="badge-tipo badge-texto">Texto</span></td>
+          <td>País en el que el encuestado trabaja. Campo de texto libre con múltiples variaciones ("US", "USA", "United States of America").</td>
+        </tr>
+        <tr>
+          <td>If you're in the US, what state do you work in?</td>
+          <td><span class="badge-tipo badge-texto">Texto</span></td>
+          <td>Estado dentro de EE.UU. Solo aplica para encuestados estadounidenses.</td>
+        </tr>
+        <tr>
+          <td>What city do you work in?</td>
+          <td><span class="badge-tipo badge-texto">Texto</span></td>
+          <td>Ciudad donde trabaja el encuestado. Campo de texto libre con inconsistencias de formato, abreviaciones y combinaciones con estado o país.</td>
+        </tr>
+        <tr>
+          <td>How many years of professional work experience do you have overall?</td>
+          <td><span class="badge-tipo badge-texto">Texto</span></td>
+          <td>Rango de años de experiencia profesional total, expresado en categorías ordinales (ej. "5-7 years", "11-20 years").</td>
+        </tr>
+        <tr>
+          <td>How many years of experience do you have in your field?</td>
+          <td><span class="badge-tipo badge-texto">Texto</span></td>
+          <td>Rango de años de experiencia específica en el campo laboral actual del encuestado.</td>
+        </tr>
+        <tr>
+          <td>What is your highest level of education completed?</td>
+          <td><span class="badge-tipo badge-texto">Texto</span></td>
+          <td>Máximo nivel educativo alcanzado por el encuestado (ej. Bachelor's degree, Master's degree).</td>
+        </tr>
+        <tr>
+          <td>What is your gender?</td>
+          <td><span class="badge-tipo badge-texto">Texto</span></td>
+          <td>Género con el que se identifica el encuestado.</td>
+        </tr>
+        <tr>
+          <td>What is your race?</td>
+          <td><span class="badge-tipo badge-texto">Texto</span></td>
+          <td>Identificación racial o étnica del encuestado. Puede contener múltiples categorías seleccionadas simultáneamente.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </section>
 
-<!-- CONCLUSIÓN -->
-<section class="section">
-<div class="wrap">
+<!-- ═══ VARIABLES DERIVADAS ═══ -->
+<section class="section derived-section">
+  <div class="wrap">
+    <span class="section-tag">Modelado de datos</span>
+    <h2 class="section-title">Variables creadas durante el modelado</h2>
+    <p class="section-lead">
+      Se crearon 8 variables adicionales. Todas las nuevas variables siguen nomenclatura en español 
+      para mantener consistencia a lo largo del análisis.
+    </p>
 
-<h2>Qué decisiones sugiere este análisis</h2>
+    <div class="derived-grid">
 
-<p style="color:#6b7280; max-width:800px; line-height:1.6; margin:0;">
-La evidencia obtenida no apunta a una solución basada únicamente en segmentación demográfica. Más bien, sugiere que mejorar la campaña requiere intervenir la estrategia de contacto.
-</p>
+      <div class="derived-card">
+        <div class="derived-name">country_clean <span class="badge-tipo badge-texto" style="margin-left:8px;">Texto</span></div>
+        <p>Versión normalizada del país de trabajo. Se homogenizaron variaciones como "US", "USA", "U.S.", "United States", "united states of america" → <strong>"United States"</strong>. Proceso realizado en Google Sheets con fórmulas de texto y reemplazos manuales para los países más frecuentes.</p>
+      </div>
 
-<div class="playbook">
+      <div class="derived-card">
+        <div class="derived-name">city_clean <span class="badge-tipo badge-texto" style="margin-left:8px;">Texto</span></div>
+        <p>Versión depurada del nombre de ciudad, eliminando variaciones de formato, abreviaciones y combinaciones con estado o país. Se estandarizaron las ciudades con mayor frecuencia de aparición en el dataset.</p>
+      </div>
 
-<div class="playcard">
-<h3>Priorizar clientes con relación previa</h3>
-<p>
-Los recursos comerciales podrían concentrarse primero en clientes con mayor probabilidad de respuesta, especialmente aquellos con historial de interacción previa.
-</p>
-</div>
+      <div class="derived-card">
+        <div class="derived-name">salario_anual_cop <span class="badge-tipo badge-num" style="margin-left:8px;">Numérico</span></div>
+        <p>Salario anual convertido a pesos colombianos. Calculado en Looker Studio como campo calculado: <strong>salario_anual_usd × 3670.20</strong>. Para registros en monedas distintas al USD se aplicó primero la conversión a dólares usando tasas de referencia del 7 de febrero de 2026.</p>
+      </div>
 
-<div class="playcard">
-<h3>Favorecer el canal más efectivo</h3>
-<p>
-La selección del canal no debería ser indiferente: usar el medio con mejor desempeño puede elevar la conversión sin aumentar el volumen de llamadas.
-</p>
-</div>
+      <div class="derived-card">
+        <div class="derived-name">compensaciones_cop <span class="badge-tipo badge-num" style="margin-left:8px;">Numérico</span></div>
+        <p>Compensación monetaria adicional anual convertida a pesos colombianos. Calculado en Looker Studio con la misma TRM: <strong>compensaciones_usd × 3670.20</strong>. Los registros vacíos se tratan como cero para los cálculos agregados.</p>
+      </div>
 
-<div class="playcard">
-<h3>Limitar intentos repetitivos</h3>
-<p>
-La campaña puede beneficiarse de reglas de recontacto más estrictas para evitar fatiga y reducir esfuerzos poco productivos.
-</p>
-</div>
+      <div class="derived-card">
+        <div class="derived-name">total_compensacion_cop <span class="badge-tipo badge-num" style="margin-left:8px;">Numérico</span></div>
+        <p>Suma del salario anual y las compensaciones adicionales en pesos colombianos. Calculado como: <strong>salario_anual_cop + compensaciones_cop</strong>. Es la variable principal para comparaciones salariales en el dashboard.</p>
+      </div>
 
-<div class="playcard">
-<h3>Mejorar la calidad de la interacción</h3>
-<p>
-La duración de la llamada sugiere una oportunidad de mejora en guiones, escucha y manejo de objeciones para convertir más conversaciones en resultados.
-</p>
-</div>
+      <div class="derived-card">
+        <div class="derived-name">salario_anual_cop_filtrado <span class="badge-tipo badge-num" style="margin-left:8px;">Numérico</span></div>
+        <p>Salario anual en COP con exclusión de valores atípicos. Se filtraron registros con salario menor a <strong>$1.000.000 COP</strong> (probables errores de digitación) y mayor a <strong>$2.000.000.000 COP</strong> (valores extremos no representativos). Usado para promedios por industria.</p>
+      </div>
 
-</div>
+      <div class="derived-card">
+        <div class="derived-name">exp_label <span class="badge-tipo badge-texto" style="margin-left:8px;">Texto</span></div>
+        <p>Etiqueta limpia del rango de experiencia profesional total, usada como dimensión categórica en las visualizaciones. Se eliminaron caracteres especiales y se estandarizó el formato para garantizar consistencia en los ejes de los gráficos.</p>
+      </div>
 
-</div>
+      <div class="derived-card">
+        <div class="derived-name">exp_order <span class="badge-tipo badge-num" style="margin-left:8px;">Numérico</span></div>
+        <p>Variable auxiliar que asigna un número ordinal a cada rango de experiencia (1 = menos de 1 año … 8 = más de 40 años). Permite ordenar correctamente los ejes de visualizaciones que usan experiencia como dimensión.</p>
+      </div>
+
+    </div>
+  </div>
 </section>
 
+<!-- ═══ PASO A PASO ═══ -->
+<section class="section etl-section">
+  <div class="wrap">
+    <span class="section-tag">Replicabilidad</span>
+    <h2 class="section-title">Paso a paso para actualizar el modelado</h2>
+    <p class="section-lead">
+      Esta guía está pensada para quien necesite actualizar los datos con nuevas versiones de la encuesta. 
+      Asume que la estructura de columnas del Google Sheets original no cambia.
+    </p>
+
+    <div class="etl-steps">
+
+      <div class="etl-step">
+        <div class="etl-num">1</div>
+        <div>
+          <div class="etl-step-title">Extraer los datos desde AskAManager.org</div>
+          <div class="etl-step-body">
+            <ul>
+              <li>Acceder al <a href="https://docs.google.com/spreadsheets/d/1IPS5dBSGtwYVbjsfbaMCYIWnOuRmJcbequohNxCyGVw/edit?resourcekey#gid=1625408792" target="_blank" style="color:#3b82f6;">Google Sheets público</a> de Ask A Manager Salary Survey 2021.</li>
+              <li>Ir a <strong>Archivo → Descargar → CSV (.csv)</strong> para obtener el archivo base.</li>
+              <li>Registrar la fecha de descarga — esta fecha determina qué TRM debe usarse en el paso 3.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="etl-step">
+        <div class="etl-num">2</div>
+        <div>
+          <div class="etl-step-title">Limpiar country y city en Google Sheets</div>
+          <div class="etl-step-body">
+            <p>Crear dos nuevas columnas al final del archivo: <code style="background:#f0f9ff; padding:2px 6px; border-radius:4px; color:#1e40af;">country_clean</code> y <code style="background:#f0f9ff; padding:2px 6px; border-radius:4px; color:#1e40af;">city_clean</code>.</p>
+            <ul>
+              <li>Para <strong>country_clean</strong>: usar <code style="background:#f0f9ff; padding:2px 6px; border-radius:4px; color:#1e40af;">=TRIM(UPPER(J2))</code> como base y luego aplicar <strong>Buscar y Reemplazar</strong> (Ctrl+H) para homogenizar las variantes más frecuentes: "US", "U.S.", "USA", "U.S.A.", "united states" → <strong>United States</strong>; "UK", "U.K." → <strong>United Kingdom</strong>; "CANADA" → <strong>Canada</strong>.</li>
+              <li>Para <strong>city_clean</strong>: aplicar <code style="background:#f0f9ff; padding:2px 6px; border-radius:4px; color:#1e40af;">=PROPER(TRIM(L2))</code> para estandarizar mayúsculas y eliminar espacios, luego revisar manualmente las ciudades con mayor frecuencia.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="etl-step">
+        <div class="etl-num">3</div>
+        <div>
+          <div class="etl-step-title">Actualizar la TRM del día</div>
+          <div class="etl-step-body">
+            <p>Antes de crear los campos calculados, obtener la TRM vigente en la fecha de actualización:</p>
+            <ul>
+              <li>Consultar la TRM oficial en el sitio del <a href="https://www.datos.gov.co/Econom-a-y-Finanzas/TRM-Tasa-Representativa-del-Mercado-/32sa-8pi3" target="_blank" style="color:#3b82f6;">Banco de la República de Colombia</a>.</li>
+              <li>Registrar el valor en un comentario dentro del dashboard y en el pie de página de la documentación.</li>
+              <li><strong>TRM utilizada en esta versión:</strong> 1 USD = $3.670,20 COP (7 de febrero de 2026).</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="etl-step">
+        <div class="etl-num">4</div>
+        <div>
+          <div class="etl-step-title">Cargar los datos en Looker Studio</div>
+          <div class="etl-step-body">
+            <ul>
+              <li>En Looker Studio, ir a <strong>Recursos → Gestionar fuentes de datos</strong>.</li>
+              <li>Editar la fuente existente y apuntar al nuevo CSV o actualizar la conexión al Google Sheets.</li>
+              <li>Verificar que las columnas numéricas (<em>annual salary</em>, <em>additional compensation</em>) sean reconocidas como <strong>métricas numéricas</strong> y no como texto.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="etl-step">
+        <div class="etl-num">5</div>
+        <div>
+          <div class="etl-step-title">Actualizar los campos calculados en Looker Studio</div>
+          <div class="etl-step-body">
+            <p>Ir a <strong>Recursos → Gestionar campos calculados</strong> y actualizar la TRM en cada fórmula:</p>
+            <div class="code-block">
+<span class="comment">-- salario_anual_cop</span>
+<span class="keyword">annual_salary</span> * <span class="string">3670.20</span>
+
+<span class="comment">-- compensaciones_cop</span>
+NULO_COMO_CERO(<span class="keyword">additional_compensation</span>) * <span class="string">3670.20</span>
+
+<span class="comment">-- total_compensacion_cop</span>
+<span class="keyword">salario_anual_cop</span> + <span class="keyword">compensaciones_cop</span>
+
+<span class="comment">-- salario_anual_cop_filtrado (excluye outliers)</span>
+IF(<span class="keyword">salario_anual_cop</span> >= <span class="string">1000000</span>
+   AND <span class="keyword">salario_anual_cop</span> <= <span class="string">2000000000</span>,
+   <span class="keyword">salario_anual_cop</span>, NULL)
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="etl-step">
+        <div class="etl-num">6</div>
+        <div>
+          <div class="etl-step-title">Verificar y publicar</div>
+          <div class="etl-step-body">
+            <ul>
+              <li>Revisar que el <strong>contador de respuestas</strong> (módulo 1) refleje el total correcto.</li>
+              <li>Verificar que el <strong>mapa</strong> (módulo 2) muestre puntos en las ubicaciones esperadas — si hay puntos en el océano, es señal de que algunos valores de <code style="background:#f0f9ff; padding:2px 6px; border-radius:4px; color:#1e40af;">country_clean</code> no se geocodificaron correctamente.</li>
+              <li>Confirmar que los <strong>promedios salariales por industria</strong> (módulo 3) usan <code style="background:#f0f9ff; padding:2px 6px; border-radius:4px; color:#1e40af;">salario_anual_cop_filtrado</code> para evitar distorsiones por outliers.</li>
+              <li>Actualizar la fecha de la TRM en el pie del dashboard y en esta documentación.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CRÉDITOS ═══ -->
+<section class="credits-section">
+  <div class="wrap">
+
+    <span class="section-tag">Créditos y fuentes</span>
+    <h2 class="section-title" style="margin-bottom: 28px;">Referencias del proyecto</h2>
+
+    <div class="credits-grid">
+
+      <div class="credit-card">
+        <div class="credit-label">Fuente de datos</div>
+        <p>Ask A Manager Salary Survey 2021<br>
+        <a href="https://www.askamanager.org/2021/04/how-much-money-do-you-make-4.html" target="_blank">AskAManager.org</a><br>
+        <a href="https://docs.google.com/spreadsheets/d/1IPS5dBSGtwYVbjsfbaMCYIWnOuRmJcbequohNxCyGVw" target="_blank">Google Sheets público</a></p>
+      </div>
+
+      <div class="credit-card">
+        <div class="credit-label">Herramientas utilizadas</div>
+        <p>Google Sheets — limpieza y transformación de datos<br>
+        Looker Studio — visualización y campos calculados<br>
+        GitHub Pages — publicación de documentación</p>
+      </div>
+
+      <div class="credit-card">
+        <div class="credit-label">Autor</div>
+        <p>Manuel Ricardo Lindarte G.<br>
+        Visualización y Storytelling<br>
+        Maestría MIAD · Universidad de los Andes · 2026</p>
+      </div>
+
+    </div>
+
+    <div class="trm-banner">
+      <div class="trm-banner-icon">💱</div>
+      <p>
+        <strong>TRM utilizada:</strong> 1 USD = $3.670,20 COP — 
+        fecha de referencia: <strong>7 de febrero de 2026</strong>. 
+        Los salarios reportados en otras monedas (GBP, CAD, AUD, EUR) fueron convertidos a USD 
+        usando las tasas de cambio vigentes en la misma fecha antes de aplicar la TRM.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
 <footer class="footer">
-Visualización y Storytelling • Universidad de los Andes<br>
-Grupo: <strong>DataTellers</strong> • Proyecto: Bank Marketing Dashboard
+  Visualización y Storytelling · Universidad de los Andes · 2026<br>
+  <strong>Manuel Ricardo Lindarte G.</strong> · 
+  Datos: <a href="https://www.askamanager.org" target="_blank">AskAManager.org</a> · 
+  Dashboard: <a href="https://lookerstudio.google.com/reporting/e6801701-9df0-4c90-8721-b6e3420663b5/page/PNtnF" target="_blank">Ver en Looker Studio</a>
 </footer>
 
 </body>
